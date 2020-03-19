@@ -1,5 +1,0 @@
-.helmignore
-Chart.yaml
-templates
-README.md
-values.yaml
