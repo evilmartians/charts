@@ -1,0 +1,20 @@
+{{- if .Values.proxy.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backup-cloudsql-proxy
+  labels:
+{{ include "cloudsql-backup.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.proxy.service.type }}
+  ports:
+    - port: {{ .Values.proxy.service.port }}
+      targetPort: pgsql
+      protocol: TCP
+      name: pgsql
+  selector:
+    app.kubernetes.io/kind: proxy
+    app.kubernetes.io/name: {{ include "cloudsql-backup.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}

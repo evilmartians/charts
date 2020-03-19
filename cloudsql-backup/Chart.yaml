@@ -1,0 +1,10 @@
+apiVersion: v2
+appVersion: "1.0"
+description: A Helm chart for periodical backup of google cloud postgres
+name: cloudsql-backup
+version: 0.2.0
+maintainers:
+  - name: Maxim Filatov
+    email: bregor@evilmartians.com
+  - name: Kirill Kuznetsov
+    email: kir@evilmartians.com

@@ -1,0 +1,60 @@
+{{- range .Values.apps }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  annotations:
+  labels:
+    app.kubernetes.io/name: {{ .name }}-backup-create
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+  name: {{ .name }}-cloudsql-backup-create
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .name }}-backup-create
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+      name: cloudsql-backup-create
+    spec:
+      activeDeadlineSeconds: 7200
+      backoffLimit: 3
+      completions: 1
+      parallelism: 1
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: {{ .name }}-backup-create
+            app.kubernetes.io/instance: {{ $.Release.Name }}
+        spec:
+          containers:
+          - name: restic
+            image: "{{ $.Values.restic.image.repository }}:{{ $.Values.restic.image.tag }}"
+            imagePullPolicy: {{ $.Values.restic.image.pullPolicy }}
+            command:
+            - /bin/sh
+            - /backup-command.sh
+            envFrom:
+            - secretRef:
+                name: {{ .name }}-restic-credentials
+            - secretRef:
+                name: {{ .name }}-postgres-credentials
+            volumeMounts:
+            - name: backup-command
+              mountPath: /backup-command.sh
+              subPath: backup-command.sh
+          dnsPolicy: ClusterFirst
+          restartPolicy: OnFailure
+          {{- with $.Values.restic.affinity }}
+          affinity:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumes:
+          - name: backup-command
+            configMap:
+              name: {{ .name }}-backup-command
+  schedule: {{ .backup_schedule }}
+  successfulJobsHistoryLimit: 3
+  suspend: false
+{{ end }}
