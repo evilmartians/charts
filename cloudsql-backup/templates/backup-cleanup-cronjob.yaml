@@ -36,16 +36,15 @@ spec:
             - /usr/bin/restic
             - forget
             - --prune
-            - --keep-last=2
-            - --keep-daily=7
-            - --keep-weekly=4
-            - --keep-monthly=3
+            {{- range $key, $value := .keep }}
+            - --keep-{{ $key }} {{ $value }}
+            {{- end }}
             envFrom:
             - secretRef:
                 name: {{ .name }}-restic-credentials
           dnsPolicy: ClusterFirst
           restartPolicy: OnFailure
-  schedule: {{ .cleanup_schedule }}
+  schedule: {{ .cleanupSchedule }}
   successfulJobsHistoryLimit: 3
   suspend: false
 {{ end }}

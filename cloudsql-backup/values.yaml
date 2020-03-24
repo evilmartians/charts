@@ -1,14 +1,17 @@
 # Applications to backup
 apps: []
 # - name: example
-#   backup_schedule: "0 2 * * *"
-#   cleanup_schedule: "0 5 * * *"
-#   restic_credentials:
+#   backupSchedule: "0 2 * * *"
+#   cleanupSchedule: "0 5 * * *"
+#   keep:
+#     last: 5
+#     within: 1m
+#   resticCredentials:
 #     RESTIC_REPOSITORY: s3:fra1.digitaloceanspaces.com/example/example
 #     RESTIC_PASSWORD: CHANGEME
 #     AWS_ACCESS_KEY_ID: CHANGEME
 #     AWS_SECRET_ACCESS_KEY: CHANGEME
-#   postgres_credentials:
+#   postgresCredentials:
 #     PGDATABASE: example_db
 #     PGUSER: example_user
 #     PGPASSWORD: example_password
@@ -38,7 +41,7 @@ restic:
   affinity: {}
   image:
     repository: quay.io/evl.ms/pgrestic
-    tag: 0.9.6-r0-alpine
+    tag: 0.9.6-r0-9.6.17-alpine
     pullPolicy: IfNotPresent
   nodeSelector: {}
   replicaCount: 1

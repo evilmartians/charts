@@ -13,14 +13,14 @@ Use values file like this `example-values.yaml`:
 ```yaml
 apps:
 - name: example
-  backup_schedule: "0 2 * * *"
-  cleanup_schedule: "0 5 * * *"
-  restic_credentials:
+  backupSchedule: "0 2 * * *"
+  cleanupSchedule: "0 5 * * *"
+  resticCredentials:
     RESTIC_REPOSITORY: s3:fra1.digitaloceanspaces.com/example/example
     RESTIC_PASSWORD: CHANGEME
     AWS_ACCESS_KEY_ID: CHANGEME
     AWS_SECRET_ACCESS_KEY: CHANGEME
-  postgres_credentials:
+  postgresCredentials:
     PGDATABASE: example_db
     PGUSER: example_user
     PGPASSWORD: example_password

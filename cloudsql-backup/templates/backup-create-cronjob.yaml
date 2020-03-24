@@ -54,7 +54,7 @@ spec:
           - name: backup-command
             configMap:
               name: {{ .name }}-backup-command
-  schedule: {{ .backup_schedule }}
+  schedule: {{ .backupSchedule }}
   successfulJobsHistoryLimit: 3
   suspend: false
 {{ end }}
