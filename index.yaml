@@ -3,7 +3,21 @@ entries:
   cloudsql-backup:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2020-03-24T18:58:17.96862+03:00"
+    created: "2020-04-01T21:41:19.552165+03:00"
+    description: A Helm chart for periodical backup of google cloud postgres
+    digest: bd07928b8d235140e16484f27ac9a82ad8e0a5d435e35c88a48f9715d3fc0b20
+    maintainers:
+    - email: bregor@evilmartians.com
+      name: Maxim Filatov
+    - email: kir@evilmartians.com
+      name: Kirill Kuznetsov
+    name: cloudsql-backup
+    urls:
+    - cloudsql-backup-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2020-04-01T21:41:19.550895+03:00"
     description: A Helm chart for periodical backup of google cloud postgres
     digest: 23b2846e74e145c78d2ab4ea186cfba617d576633f7b2acf114610d2920a2921
     maintainers:
@@ -17,7 +31,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2020-03-24T18:58:17.968054+03:00"
+    created: "2020-04-01T21:41:19.550349+03:00"
     description: A Helm chart for periodical backup of google cloud postgres
     digest: 531900154d3e941fe90a54bc0826bef826315ee9526ee7df98b31495adc00856
     maintainers:
@@ -29,4 +43,4 @@ entries:
     urls:
     - cloudsql-backup-0.2.0.tgz
     version: 0.2.0
-generated: "2020-03-24T18:58:17.965628+03:00"
+generated: "2020-04-01T21:41:19.54962+03:00"
