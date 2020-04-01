@@ -10,5 +10,5 @@ metadata:
 data:
   backup-command.sh: |
     #!/bin/sh
-    /usr/bin/pg_dump --format=c | /usr/bin/restic backup --host={{ .name }}-backup --stdin --stdin-filename="${PGDATABASE}-$(date +%F_%H:%M:%S).dump"
+    /usr/local/bin/pg_dump --format=c | /usr/bin/restic backup --host={{ .name }}-backup --stdin --stdin-filename="${PGDATABASE}-$(date +%F_%H:%M:%S).dump"
 {{ end }}
