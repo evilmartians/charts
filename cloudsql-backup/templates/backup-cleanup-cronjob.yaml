@@ -37,7 +37,7 @@ spec:
             - forget
             - --prune
             {{- range $key, $value := .keep }}
-            - --keep-{{ $key }} {{ $value }}
+            - --keep-{{ $key }}={{ $value }}
             {{- end }}
             envFrom:
             - secretRef:
