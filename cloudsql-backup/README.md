@@ -14,7 +14,9 @@ Use values file like this `example-values.yaml`:
 apps:
 - name: example
   backupSchedule: "0 2 * * *"
-  cleanupSchedule: "0 5 * * *"
+  backupTimeout: 8000
+  cleanupSchedule: "0 7 * * *"
+  cleanupTimeout: 1000
   resticCredentials:
     RESTIC_REPOSITORY: s3:fra1.digitaloceanspaces.com/example/example
     RESTIC_PASSWORD: CHANGEME
