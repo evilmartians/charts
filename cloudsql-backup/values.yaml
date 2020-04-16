@@ -16,6 +16,9 @@ apps: []
 #     PGUSER: example_user
 #     PGPASSWORD: example_password
 #     PGHOST: pg.example.com
+#   timeouts:
+#     cleanup: 1000
+#     create: 7000
 
 # Enables and configures a CloudSQL proxy instance.
 # Use it if you do not have a private-network-connected PG db instance.

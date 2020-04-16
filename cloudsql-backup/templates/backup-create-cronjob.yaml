@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/instance: {{ $.Release.Name }}
       name: cloudsql-backup-create
     spec:
-      activeDeadlineSeconds: 7200
+      activeDeadlineSeconds: {{ .createTimeout | default 7200 }}
       backoffLimit: 3
       completions: 1
       parallelism: 1
