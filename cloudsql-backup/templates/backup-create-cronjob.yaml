@@ -34,26 +34,19 @@ spec:
             imagePullPolicy: {{ $.Values.restic.image.pullPolicy }}
             command:
             - /bin/sh
-            - /backup-command.sh
+            - -c
+            - '/usr/local/bin/pg_dump --verbose --format=c | /usr/bin/restic backup --host={{ .name }}-backup --verbose --stdin --stdin-filename="${PGDATABASE}.dump"'
             envFrom:
             - secretRef:
                 name: {{ .name }}-restic-credentials
             - secretRef:
                 name: {{ .name }}-postgres-credentials
-            volumeMounts:
-            - name: backup-command
-              mountPath: /backup-command.sh
-              subPath: backup-command.sh
           dnsPolicy: ClusterFirst
           restartPolicy: OnFailure
           {{- with $.Values.restic.affinity }}
           affinity:
           {{- toYaml . | nindent 12 }}
           {{- end }}
-          volumes:
-          - name: backup-command
-            configMap:
-              name: {{ .name }}-backup-command
   schedule: {{ .backupSchedule }}
   successfulJobsHistoryLimit: 3
   suspend: false
