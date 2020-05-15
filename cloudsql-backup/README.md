@@ -19,6 +19,8 @@ apps:
   cleanupTimeout: 1000
   checkSchedule: "0 12 * * *"
   checkTimeout: 600
+  unlockSchedule: "0 15 * * *"
+  unlockTimeout: 60
   resticCredentials:
     RESTIC_REPOSITORY: s3:fra1.digitaloceanspaces.com/example/example
     RESTIC_PASSWORD: CHANGEME
