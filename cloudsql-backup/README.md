@@ -35,7 +35,7 @@ proxy:
 ```
 
 ```shell
-helm repo add evilmartians https://helm.evilmartinas.net
+helm repo add evilmartians https://helm.evilmartians.net
 
 helm install cloudsql-backup evilmartians/cloudsql-backup -f example-values.yaml
 ```
