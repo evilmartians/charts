@@ -1,0 +1,46 @@
+{{- range .Values.apps }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  annotations:
+  labels:
+    app.kubernetes.io/name: {{ .name }}-backup-check
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+  name: {{ .name }}-cloudsql-backup-check
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .name }}-backup-check
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+      name: cloudsql-backup-check
+    spec:
+      activeDeadlineSeconds: {{ .checkTimeout | default 600 }}
+      backoffLimit: 3
+      completions: 1
+      parallelism: 1
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: {{ .name }}-backup-check
+            app.kubernetes.io/instance: {{ $.Release.Name }}
+        spec:
+          containers:
+          - name: restic
+            image: "{{ $.Values.restic.image.repository }}:{{ $.Values.restic.image.tag }}"
+            imagePullPolicy: {{ $.Values.restic.image.pullPolicy }}
+            command:
+            - /usr/bin/restic
+            - check
+            envFrom:
+            - secretRef:
+                name: {{ .name }}-restic-credentials
+          dnsPolicy: ClusterFirst
+          restartPolicy: OnFailure
+  schedule: {{ .checkSchedule }}
+  successfulJobsHistoryLimit: 3
+  suspend: false
+{{ end }}

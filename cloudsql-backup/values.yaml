@@ -3,6 +3,7 @@ apps: []
 # - name: example
 #   backupSchedule: "0 2 * * *"
 #   cleanupSchedule: "0 5 * * *"
+#   checkSchedule: "0 12 * * *"
 #   keep:
 #     last: 5
 #     within: 1m

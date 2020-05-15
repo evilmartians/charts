@@ -17,6 +17,8 @@ apps:
   backupTimeout: 8000
   cleanupSchedule: "0 7 * * *"
   cleanupTimeout: 1000
+  checkSchedule: "0 12 * * *"
+  checkTimeout: 600
   resticCredentials:
     RESTIC_REPOSITORY: s3:fra1.digitaloceanspaces.com/example/example
     RESTIC_PASSWORD: CHANGEME
