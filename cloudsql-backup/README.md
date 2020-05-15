@@ -42,7 +42,8 @@ helm install cloudsql-backup evilmartians/cloudsql-backup -f example-values.yaml
 
 ## Values
 
-|Value|Description|Default|
+| Value | Description | Default |
+|-------|:-----------:|--------:|
 |**apps**|An array of databases to backup and credentials to use for that. (See an example above)||
 |**proxy.affinity**|Affinity section for the cloudsql proxy deployment||
 |**proxy.credentialsJson**|JSON service account key cloudsql proxy will use to connect to a database||
