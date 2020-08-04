@@ -1,8 +1,8 @@
 apiVersion: v2
 appVersion: "0.9.6"
-description: A Helm chart for periodical backup of google cloud postgres
+description: A Helm chart for periodical backup of cloud postgresql
 name: cloudsql-backup
-version: 0.4.1
+version: 0.5.0
 maintainers:
   - name: Maxim Filatov
     email: bregor@evilmartians.com
