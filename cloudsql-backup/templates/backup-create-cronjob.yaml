@@ -41,8 +41,15 @@ spec:
                 name: {{ .name }}-restic-credentials
             - secretRef:
                 name: {{ .name }}-postgres-credentials
+            volumeMounts:
+            - name: config-files
+              mountPath: /config
           dnsPolicy: ClusterFirst
           restartPolicy: OnFailure
+          volumes:
+          - name: config-files
+            secret:
+              secretName: {{ .name }}-config-files
           {{- with $.Values.restic.affinity }}
           affinity:
           {{- toYaml . | nindent 12 }}

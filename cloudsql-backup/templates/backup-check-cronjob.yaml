@@ -38,8 +38,15 @@ spec:
             envFrom:
             - secretRef:
                 name: {{ .name }}-restic-credentials
+            volumeMounts:
+            - name: config-files
+              mountPath: /config
           dnsPolicy: ClusterFirst
           restartPolicy: OnFailure
+          volumes:
+          - name: config-files
+            secret:
+              secretName: {{ .name }}-config-files
   schedule: {{ .checkSchedule }}
   successfulJobsHistoryLimit: 3
   suspend: false

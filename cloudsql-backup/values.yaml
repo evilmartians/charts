@@ -13,11 +13,15 @@ apps: []
 #     RESTIC_PASSWORD: CHANGEME
 #     AWS_ACCESS_KEY_ID: CHANGEME
 #     AWS_SECRET_ACCESS_KEY: CHANGEME
+#     GOOGLE_PROJECT_ID: CHANGEME
+#     GOOGLE_APPLICATION_CREDENTIALS: /config/gs-secret-restic-key.json
 #   postgresCredentials:
 #     PGDATABASE: example_db
 #     PGUSER: example_user
 #     PGPASSWORD: example_password
 #     PGHOST: pg.example.com
+#   configFiles:
+#     gs-secret-restic-key.json: <base64-encoded gcloud json file>
 #   timeouts:
 #     cleanup: 1000
 #     create: 7000
