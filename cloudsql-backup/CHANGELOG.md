@@ -1,4 +1,5 @@
 # UNRELEASED
+- update default `pgrestic` tag to `0.9.6-r0-12.2-alpine`
 - add `config-files` secret for additional configuration files. E.g. google cloud key json.
 
 # 0.4.1 (15.05.2020)

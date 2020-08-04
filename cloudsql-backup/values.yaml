@@ -50,7 +50,7 @@ restic:
   affinity: {}
   image:
     repository: quay.io/evl.ms/pgrestic
-    tag: 0.9.6-r0-9.6.17-alpine
+    tag: 0.9.6-r0-12.2-alpine
     pullPolicy: IfNotPresent
   nodeSelector: {}
   replicaCount: 1
