@@ -2,9 +2,13 @@
 apps: []
 # - name: example
 #   backupSchedule: "0 2 * * *"
+#   backupTimeout: 7200
 #   cleanupSchedule: "0 5 * * *"
+#   cleanupTimeout: 7200
 #   checkSchedule: "0 12 * * *"
+#   checkTimeout: 3600
 #   unlockSchedule: "0 15 * * *"
+#   unlockTimeout: 60
 #   keep:
 #     last: 5
 #     within: 1m
@@ -22,9 +26,6 @@ apps: []
 #     PGHOST: pg.example.com
 #   configFiles:
 #     gs-secret-restic-key.json: <base64-encoded gcloud json file>
-#   timeouts:
-#     cleanup: 1000
-#     create: 7000
 
 # Enables and configures a CloudSQL proxy instance.
 # Use it if you do not have a private-network-connected PG db instance.

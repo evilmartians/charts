@@ -14,11 +14,11 @@ Use values file like this `example-values.yaml`:
 apps:
 - name: example
   backupSchedule: "0 2 * * *"
-  backupTimeout: 8000
+  backupTimeout: 7200
   cleanupSchedule: "0 7 * * *"
-  cleanupTimeout: 1000
+  cleanupTimeout: 7200
   checkSchedule: "0 12 * * *"
-  checkTimeout: 600
+  checkTimeout: 3600
   unlockSchedule: "0 15 * * *"
   unlockTimeout: 60
   resticCredentials:
