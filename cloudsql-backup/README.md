@@ -21,6 +21,13 @@ apps:
   checkTimeout: 3600
   unlockSchedule: "0 15 * * *"
   unlockTimeout: 60
+  resources:
+    limits:
+      cpu: 1
+      memory: 1Gi
+    requests:
+      cpu: 1
+      memory: 1Gi
   resticCredentials:
     RESTIC_REPOSITORY: s3:fra1.digitaloceanspaces.com/example/example
     RESTIC_PASSWORD: CHANGEME

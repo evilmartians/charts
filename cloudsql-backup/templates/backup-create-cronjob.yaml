@@ -41,6 +41,10 @@ spec:
                 name: {{ .name }}-restic-credentials
             - secretRef:
                 name: {{ .name }}-postgres-credentials
+{{- if .resources }}
+            resources:
+{{ toYaml .resources | indent 14 }}
+{{- end }}
             volumeMounts:
             - name: config-files
               mountPath: /config

@@ -10,6 +10,13 @@ apps: []
 #   unlockSchedule: "0 15 * * *"
 #   unlockTimeout: 60
 #   nodeSelector: {}
+#   resources:
+#     limits:
+#       cpu: 1
+#       memory: 1Gi
+#     requests:
+#       cpu: 1
+#       memory: 1Gi
 #   tolerations: []
 #   keep:
 #     last: 5

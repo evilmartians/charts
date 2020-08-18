@@ -1,4 +1,5 @@
 # UNRELEASED
+- Apps: add resources
 - Apps: add nodeSelector and tolerations
 
 # 0.5.0 (04.08.2020)
