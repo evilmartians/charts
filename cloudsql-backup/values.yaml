@@ -9,6 +9,8 @@ apps: []
 #   checkTimeout: 3600
 #   unlockSchedule: "0 15 * * *"
 #   unlockTimeout: 60
+#   nodeSelector: {}
+#   tolerations: []
 #   keep:
 #     last: 5
 #     within: 1m
@@ -53,7 +55,3 @@ restic:
     repository: quay.io/evl.ms/pgrestic
     tag: 0.9.6-r0-12.2-alpine
     pullPolicy: IfNotPresent
-  nodeSelector: {}
-  replicaCount: 1
-  resources: {}
-  tolerations: []

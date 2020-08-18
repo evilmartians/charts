@@ -47,6 +47,14 @@ spec:
           - name: config-files
             secret:
               secretName: {{ .name }}-config-files
+{{- if .nodeSelector }}
+          nodeSelector:
+{{ toYaml .nodeSelector | indent 12 }}
+{{- end }}
+{{- if .tolerations }}
+          tolerations:
+{{ toYaml .tolerations | indent 12 }}
+{{- end }}
   schedule: {{ .checkSchedule }}
   successfulJobsHistoryLimit: 3
   suspend: false

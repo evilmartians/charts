@@ -54,6 +54,14 @@ spec:
           affinity:
           {{- toYaml . | nindent 12 }}
           {{- end }}
+{{- if .nodeSelector }}
+          nodeSelector:
+{{ toYaml .nodeSelector | indent 12 }}
+{{- end }}
+{{- if .tolerations }}
+          tolerations:
+{{ toYaml .tolerations | indent 12 }}
+{{- end }}
   schedule: {{ .backupSchedule }}
   successfulJobsHistoryLimit: 3
   suspend: false
