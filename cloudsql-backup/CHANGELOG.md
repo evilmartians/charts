@@ -1,4 +1,6 @@
 # UNRELEASED
+
+# 0.5.2 (19.08.2020)
 - Apps: add explicit prune step
 
 # 0.5.1 (18.08.2020)
