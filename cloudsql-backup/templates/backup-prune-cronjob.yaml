@@ -1,0 +1,65 @@
+{{- range .Values.apps }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  annotations:
+  labels:
+    app.kubernetes.io/name: {{ .name }}-backup-prune
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+  name: {{ .name }}-cloudsql-backup-prune
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .name }}-backup-prune
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+      name: cloudsql-backup-prune
+    spec:
+      activeDeadlineSeconds: {{ .pruneTimeout | default 60 }}
+      backoffLimit: 3
+      completions: 1
+      parallelism: 1
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: {{ .name }}-backup-prune
+            app.kubernetes.io/instance: {{ $.Release.Name }}
+        spec:
+          containers:
+          - name: restic
+            image: "{{ $.Values.restic.image.repository }}:{{ $.Values.restic.image.tag }}"
+            imagePullPolicy: {{ $.Values.restic.image.pullPolicy }}
+            command:
+            - /usr/bin/restic
+            - prune
+            envFrom:
+            - secretRef:
+                name: {{ .name }}-restic-credentials
+{{- if .resources }}
+            resources:
+{{ toYaml .resources | indent 14 }}
+{{- end }}
+            volumeMounts:
+            - name: config-files
+              mountPath: /config
+          dnsPolicy: ClusterFirst
+          restartPolicy: OnFailure
+          volumes:
+          - name: config-files
+            secret:
+              secretName: {{ .name }}-config-files
+{{- if .nodeSelector }}
+          nodeSelector:
+{{ toYaml .nodeSelector | indent 12 }}
+{{- end }}
+{{- if .tolerations }}
+          tolerations:
+{{ toYaml .tolerations | indent 12 }}
+{{- end }}
+  schedule: {{ .pruneSchedule }}
+  successfulJobsHistoryLimit: 3
+  suspend: false
+{{ end }}

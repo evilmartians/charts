@@ -1,4 +1,5 @@
 # UNRELEASED
+- Apps: add explicit prune step
 
 # 0.5.1 (18.08.2020)
 - Apps: add resources

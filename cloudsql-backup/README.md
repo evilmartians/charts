@@ -19,6 +19,8 @@ apps:
   cleanupTimeout: 7200
   checkSchedule: "0 12 * * *"
   checkTimeout: 3600
+  pruneSchedule: "0 20 * * *"
+  pruneTimeout: 14400
   unlockSchedule: "0 15 * * *"
   unlockTimeout: 60
   resources:
