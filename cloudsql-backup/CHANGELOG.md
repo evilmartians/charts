@@ -1,5 +1,9 @@
 # UNRELEASED
 
+# 0.6.0 (01.03.2021)
+- Update default `pgrestic` tag to `0.12.0-13.2-alpine`
+- Update restic and postgresql versions in dockerfile
+
 # 0.5.2 (19.08.2020)
 - Apps: add explicit prune step
 
