@@ -12,4 +12,4 @@ RUN wget -q "$RESTIC_URL" \
   && echo "${RESTIC_SHA256SUM}  ${RESTIC_ARCHIVE}" | sha256sum -c - \
   && bzip2 -d "${RESTIC_ARCHIVE}" \
   && chmod +x "$RESTIC" \
-  && mv "$RESTIC" /usr/local/bin/restic
+  && mv "$RESTIC" /usr/bin/restic
