@@ -1,0 +1,19 @@
+---
+# digital ocean
+do_oauth_token: "digital-ocean-api-token-with-write-permission"
+do_size: "use 'doctl compute size list' to choose"
+do_region: "use 'doctl compute region list' to choose"
+do_image: "use 'doctl compute image list --public' to choose"
+
+# ssh key
+ssh_public_key: ""
+ssh_private_key: ""
+
+# database
+database_name: "name"
+
+# restic credentials
+aws_access_key_id: ""
+aws_secret_access_key: ""
+restic_password: ""
+restic_repository: ""

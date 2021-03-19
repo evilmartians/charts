@@ -1,0 +1,57 @@
+{{- range .Values.databases }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  annotations:
+  labels: {{ include "cloudsql-backup-check.labels" $ | nindent 4 }}
+  name: {{ .name }}-backup-check
+spec:
+  schedule: {{ .schedule }}
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 3
+  jobTemplate:
+    metadata:
+      labels: {{ include "cloudsql-backup-check.labels" $ | nindent 8 }}
+    spec:
+      activeDeadlineSeconds: {{ .timeout | default 7200 }}
+      backoffLimit: 3
+      completions: 1
+      parallelism: 1
+      template:
+        metadata:
+          labels: {{ include "cloudsql-backup-check.labels" $ | nindent 12 }}
+        spec:
+          dnsPolicy: ClusterFirst
+          restartPolicy: OnFailure
+          containers:
+          - name: ansible
+            image: "{{ $.Values.ansible_backup_check.image.repository }}:{{ $.Values.ansible_backup_check.image.tag }}"
+            imagePullPolicy: {{ $.Values.ansible_backup_check.image.pullPolicy }}
+            command: ["ansible-playbook", "--extra-vars", "@/config/variables.yml", "main.yml"]
+            volumeMounts:
+            - name: variables
+              mountPath: /config
+            - name: sshkeys
+              mountPath: /sshkeys
+            {{- if .resources }}
+            resources: {{- toYaml .resources | nindent 14 }}
+            {{- end }}
+          volumes:
+          - name: variables
+            secret:
+              secretName: {{ .name }}-ansible-variables
+          - name: sshkeys
+            secret:
+              secretName: {{ .name }}-ssh-key
+          {{- with .affinity }}
+          affinity: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .nodeSelector }}
+          nodeSelector: {{- toYaml .nodeSelector | nindent 12 }}
+          {{- end }}
+          {{- if .tolerations }}
+          tolerations: {{- toYaml .tolerations | nindent 12 }}
+          {{- end }}
+{{ end }}

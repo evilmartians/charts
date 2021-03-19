@@ -1,0 +1,14 @@
+---
+- name: Restore database from backup
+  shell:
+    cmd: "restic dump {{ snapshot }} /{{ database_name }}.dump | pg_restore --clean --create --if-exists --no-privileges --no-owner --dbname postgres"
+  become_user: postgres
+  environment:
+    AWS_ACCESS_KEY_ID: "{{ aws_access_key_id }}"
+    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_access_key }}"
+    RESTIC_PASSWORD: "{{ restic_password }}"
+    RESTIC_REPOSITORY: "{{ restic_repository }}"
+  retries: 3
+  delay: 5
+  register: result
+  until: result.rc == 0

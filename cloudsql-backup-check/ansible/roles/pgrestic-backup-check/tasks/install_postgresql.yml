@@ -1,0 +1,19 @@
+---
+- name: Add postgresql apt key
+  apt_key:
+    url: "{{ postgresql_apt_key_url }}"
+
+- name: Add postgresql apt repository
+  apt_repository:
+    repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
+
+- name: Install PostgreSQL packages.
+  apt:
+    name: "postgresql-{{ postgresql_version }}"
+    update_cache: true
+    state: present
+
+- name: Ensure PostgreSQL is started.
+  service:
+    name: postgresql
+    state: started

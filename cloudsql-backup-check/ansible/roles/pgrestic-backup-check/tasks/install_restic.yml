@@ -1,0 +1,16 @@
+---
+- name: Download restic
+  get_url:
+    url: "{{ restic_url }}"
+    dest: /usr/local/bin/restic.bz2
+    checksum: "sha256:{{ restic_hash }}"
+
+- name: Decompress restic
+  command:
+    cmd: bzip2 -d /usr/local/bin/restic.bz2
+    creates: /usr/local/bin/restic
+
+- name: Make restic executable
+  file:
+    path: /usr/local/bin/restic
+    mode: a+x

@@ -1,0 +1,64 @@
+---
+# create droplet and ssh key
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Add ssh key to Digital Ocean
+      community.digitalocean.digital_ocean_sshkey:
+        oauth_token: "{{ do_oauth_token }}"
+        name: "{{ database_name | regex_replace('([^a-zA-Z0-9.-])', '-') }}-postgresql-backup-check"
+        ssh_pub_key: "{{ lookup('file', '/sshkeys/ssh-publickey') }}"
+        state: present
+      register: do_ssh_key
+
+    - name: Create a new droplet
+      community.digitalocean.digital_ocean_droplet:
+        state: present
+        name: "{{ database_name | regex_replace('([^a-zA-Z0-9.-])', '-') }}-postgresql-backup-check"
+        wait_timeout: 500
+        unique_name: true
+        oauth_token: "{{ do_oauth_token }}"
+        size: "{{ do_size }}"
+        region: "{{ do_region }}"
+        image: "{{ do_image }}"
+        ssh_keys:
+          - "{{ do_ssh_key.data.ssh_key.fingerprint }}"
+      register: droplet
+
+    - name: Wait 300 seconds for port 22 to become open and contain "OpenSSH"
+      wait_for:
+        port: 22
+        host: '{{ droplet.data.ip_address }}'
+        search_regex: OpenSSH
+        delay: 5
+
+    - name: Add created droplet to droplets group
+      add_host:
+        name: "{{ droplet.data.ip_address }}"
+        groups: droplets
+
+# install postgresql and restore database(s) from backup
+- hosts: droplets
+  become: true
+  vars:
+    ansible_ssh_private_key_file: "/sshkeys/ssh-privatekey"
+  roles:
+    - role: pgrestic-backup-check
+
+# delete droplet and ssh key
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Delete droplet
+      community.digitalocean.digital_ocean_droplet:
+        oauth_token: "{{ do_oauth_token }}"
+        id: "{{ droplet.data.droplet.id }}"
+        state: absent
+
+    - name: Delete ssh key from Digital Ocean
+      community.digitalocean.digital_ocean_sshkey:
+        oauth_token: "{{ do_oauth_token }}"
+        fingerprint: "{{ do_ssh_key.data.ssh_key.fingerprint }}"
+        state: absent

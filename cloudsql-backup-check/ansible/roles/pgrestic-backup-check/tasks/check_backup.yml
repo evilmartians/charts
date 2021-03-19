@@ -1,0 +1,5 @@
+---
+- name: Check restored backup
+  command:
+    cmd: "psql --dbname {{ database_name }} --quiet --command 'SELECT 1;'"
+  become_user: postgres

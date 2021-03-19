@@ -1,0 +1,5 @@
+---
+- import_tasks: install_postgresql.yml
+- import_tasks: install_restic.yml
+- import_tasks: restore_backup.yml
+- import_tasks: check_backup.yml
