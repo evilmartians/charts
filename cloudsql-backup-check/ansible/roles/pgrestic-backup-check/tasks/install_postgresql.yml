@@ -13,6 +13,12 @@
     update_cache: true
     state: present
 
+- name: Install PostgreSQL additional packages.
+  apt:
+    name: "{{ postgresql_extensions }}"
+    update_cache: true
+    state: present
+
 - name: Ensure PostgreSQL is started.
   service:
     name: postgresql

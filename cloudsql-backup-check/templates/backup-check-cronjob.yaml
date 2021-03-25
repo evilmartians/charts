@@ -29,7 +29,7 @@ spec:
           - name: ansible
             image: "{{ $.Values.ansible_backup_check.image.repository }}:{{ $.Values.ansible_backup_check.image.tag }}"
             imagePullPolicy: {{ $.Values.ansible_backup_check.image.pullPolicy }}
-            command: ["ansible-playbook", "--extra-vars", "@/config/variables.yml", "main.yml"]
+            command: ["ansible-playbook", "--extra-vars", "@/config/variables.yml", "--user", "{{ .ssh.user }}", "{{ .cloud }}.yml"]
             volumeMounts:
             - name: variables
               mountPath: /config
@@ -45,6 +45,7 @@ spec:
           - name: sshkeys
             secret:
               secretName: {{ .name }}-ssh-key
+              defaultMode: 0600
           {{- with .affinity }}
           affinity: {{- toYaml . | nindent 12 }}
           {{- end }}

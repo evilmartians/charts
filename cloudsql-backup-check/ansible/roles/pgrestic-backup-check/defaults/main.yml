@@ -2,6 +2,8 @@
 # postgresql
 postgresql_version: "13"
 postgresql_apt_key_url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+# list of apt packages of posgresql extensions
+postgresql_extensions: []
 
 # restic
 snapshot: "latest"

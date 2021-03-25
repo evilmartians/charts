@@ -1,0 +1,69 @@
+---
+# create ec2 instance and ssh key
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Add ssh key to AWS
+      amazon.aws.ec2_key:
+        name: "{{ database_name | regex_replace('([^a-zA-Z0-9.-])', '-') }}-postgresql-backup-check"
+        key_material: "{{ lookup('file', '/sshkeys/ssh-publickey') }}"
+        region: "{{ aws_region }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+
+    - name: Create a new instance
+      community.aws.ec2_instance:
+        name: "{{ database_name | regex_replace('([^a-zA-Z0-9.-])', '-') }}-postgresql-backup-check"
+        key_name: "{{ database_name | regex_replace('([^a-zA-Z0-9.-])', '-') }}-postgresql-backup-check"
+        image_id: "{{ aws_image }}"
+        instance_type: "{{ aws_instance_type }}"
+        security_group: "{{ aws_security_group }}"
+        vpc_subnet_id: "{{ aws_subnet }}"
+        network:
+          assign_public_ip: true
+        region: "{{ aws_region }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+      register: ec2
+
+    - name: Wait 300 seconds for port 22 to become open and contain "OpenSSH"
+      wait_for:
+        port: 22
+        host: '{{ ec2.instances[0].public_ip_address }}'
+        search_regex: OpenSSH
+        delay: 5
+
+    - name: Add new instance to host group
+      add_host:
+        hostname: "{{ ec2.instances[0].public_ip_address }}"
+        groupname: instances
+
+# install postgresql and restore database from backup
+- hosts: instances
+  become: true
+  vars:
+    ansible_ssh_private_key_file: "/sshkeys/ssh-privatekey"
+  roles:
+    - role: pgrestic-backup-check
+
+# delete ec2 instance and ssh key
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Delete instance
+      amazon.aws.ec2:
+        instance_ids: '{{ ec2.instance_ids }}'
+        state: absent
+        region: "{{ aws_region }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+
+    - name: Delete ssh key
+      amazon.aws.ec2_key:
+        name: "{{ database_name | regex_replace('([^a-zA-Z0-9.-])', '-') }}-postgresql-backup-check"
+        state: absent
+        region: "{{ aws_region }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"

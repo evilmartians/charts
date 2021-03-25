@@ -38,7 +38,7 @@
         name: "{{ droplet.data.ip_address }}"
         groups: droplets
 
-# install postgresql and restore database(s) from backup
+# install postgresql and restore database from backup
 - hosts: droplets
   become: true
   vars:

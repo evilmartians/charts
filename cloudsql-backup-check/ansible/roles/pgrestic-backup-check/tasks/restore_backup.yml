@@ -1,11 +1,14 @@
 ---
 - name: Restore database from backup
   shell:
-    cmd: "restic dump {{ snapshot }} /{{ database_name }}.dump | pg_restore --clean --create --if-exists --no-privileges --no-owner --dbname postgres"
+    cmd: |
+      set -o pipefail
+      restic dump {{ snapshot }} /{{ database_name }}.dump | pg_restore --clean --create --exit-on-error --if-exists --no-privileges --no-owner --dbname postgres
+    executable: /bin/bash
   become_user: postgres
   environment:
-    AWS_ACCESS_KEY_ID: "{{ aws_access_key_id }}"
-    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_access_key }}"
+    AWS_ACCESS_KEY_ID: "{{ restic_aws_access_key }}"
+    AWS_SECRET_ACCESS_KEY: "{{ restic_aws_secret_key }}"
     RESTIC_PASSWORD: "{{ restic_password }}"
     RESTIC_REPOSITORY: "{{ restic_repository }}"
   retries: 3

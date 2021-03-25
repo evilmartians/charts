@@ -1,6 +1,6 @@
 FROM alpine:3.13.2
 
-RUN apk add --no-cache ansible
+RUN apk add --no-cache ansible openssh-client py3-boto3 py3-boto
 
 WORKDIR /ansible
 

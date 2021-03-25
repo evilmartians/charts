@@ -1,19 +1,24 @@
 ---
+# general
+database_name: "name"
+
+# restic credentials
+restic_aws_access_key: ""
+restic_aws_secret_key: ""
+restic_password: ""
+restic_repository: ""
+
 # digital ocean
 do_oauth_token: "digital-ocean-api-token-with-write-permission"
 do_size: "use 'doctl compute size list' to choose"
 do_region: "use 'doctl compute region list' to choose"
-do_image: "use 'doctl compute image list --public' to choose"
+do_image: "use 'doctl compute image list --public' to choose, only Ubuntu 20.04 tested"
 
-# ssh key
-ssh_public_key: ""
-ssh_private_key: ""
-
-# database
-database_name: "name"
-
-# restic credentials
-aws_access_key_id: ""
-aws_secret_access_key: ""
-restic_password: ""
-restic_repository: ""
+# aws
+aws_access_key: "access key"
+aws_secret_key: "secret key"
+aws_region: "eu-west-1, us-east-1, etc."
+aws_instance_type: "t2.nano, i3.large, etc."
+aws_image: "ami-***, only Ubuntu 20.04 tested"
+aws_security_group: "name of security group with allowed inbound TCP traffic on port 22"
+aws_subnet: "subnet-***"
