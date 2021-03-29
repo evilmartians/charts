@@ -11,6 +11,8 @@
     AWS_SECRET_ACCESS_KEY: "{{ restic_aws_secret_key }}"
     RESTIC_PASSWORD: "{{ restic_password }}"
     RESTIC_REPOSITORY: "{{ restic_repository }}"
+  async: "{{ restoration_timeout }}"
+  poll: 5
   retries: 3
   delay: 5
   register: result

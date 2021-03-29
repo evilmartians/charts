@@ -9,3 +9,7 @@ postgresql_extensions: []
 snapshot: "latest"
 restic_url: "https://github.com/restic/restic/releases/download/v0.12.0/restic_0.12.0_linux_amd64.bz2"
 restic_hash: "63d13d53834ea8aa4d461f0bfe32a89c70ec47e239b91f029ed10bd88b8f4b80"
+
+# timeout for "async" option of restoration task (seconds)
+# default: 6 hours
+restoration_timeout: 21600
