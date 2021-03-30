@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.2.1 (25.03.2021)
+- Add keepalive options for ssh and ansible
+
 # 0.2.0 (25.03.2021)
 - Add AWS cloud support
 
