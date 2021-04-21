@@ -17,3 +17,17 @@
   delay: 5
   register: result
   until: result.rc == 0
+
+- name: Unlock restic repository
+  shell:
+    cmd: restic unlock
+    executable: /bin/bash
+  environment:
+    AWS_ACCESS_KEY_ID: "{{ restic_aws_access_key }}"
+    AWS_SECRET_ACCESS_KEY: "{{ restic_aws_secret_key }}"
+    RESTIC_PASSWORD: "{{ restic_password }}"
+    RESTIC_REPOSITORY: "{{ restic_repository }}"
+  retries: 3
+  delay: 5
+  register: result
+  until: result.rc == 0
