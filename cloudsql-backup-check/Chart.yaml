@@ -1,7 +1,7 @@
 apiVersion: v2
 name: cloudsql-backup-check
 description: A Helm chart for checking PostgreSQL backup integrity
-version: 0.2.1
+version: 0.2.2
 appVersion: "2.10.5"
 maintainers:
   - name: Ilya Cherepanov

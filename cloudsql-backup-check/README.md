@@ -103,7 +103,7 @@ databases:
 ansible_backup_check:
   image:
     repository: quay.io/evl.ms/ansible-postgresql-backup-check
-    tag: 20210330-alpine
+    tag: 20210421-alpine
     pullPolicy: IfNotPresent
 ```
 
@@ -119,5 +119,5 @@ helm install cloudsql-backup-check evilmartians/cloudsql-backup-check -f example
 |-------|:-----------:|--------:|
 |**databases**|An array of databases' backups. (See an example above)||
 |**ansible\_backup\_check.image.repository**|Docker repository for the docker image with ansible playbooks|`quay.io/evl.ms/ansible-postgresql-backup-check`|
-|**ansible\_backup\_check.image.tag**|Docker image tag for the docker image with ansible playbooks|`20210330-alpine`|
+|**ansible\_backup\_check.image.tag**|Docker image tag for the docker image with ansible playbooks|`20210421-alpine`|
 |**ansible\_backup\_check.image.pullPolicy**|Docker image pull policy for the ansible pods|`IfNotPresent`|

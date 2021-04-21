@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.2.2 (21.04.2021)
+- Add "restic unlock" after successful database restoration
+
 # 0.2.1 (25.03.2021)
 - Add keepalive options for ssh and ansible
 
