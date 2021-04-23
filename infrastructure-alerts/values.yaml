@@ -1,0 +1,118 @@
+---
+# When you enable some rule group here you must disable
+# rule group of the same name in values.yaml for kube-prometheus-stack chart
+# in order to avoid overlapping of rules
+ruleGroups:
+  alertmanager:
+    enabled: true
+    disabledRules:
+      - AlertmanagerConfigInconsistent
+      - AlertmanagerMembersInconsistent
+
+  # If you want to use this rule group
+  # you must have kubeEtcd.enabled = true
+  # in your values.yaml for kube-prometheus-stack chart
+  etcd:
+    enabled: false
+    disabledRules: []
+
+  general:
+    enabled: true
+    disabledRules:
+      - TargetDown
+
+  helm:
+    enabled: true
+    disabledRules: []
+
+  # If you want to use this rule group
+  # you must have kubeApiServer.enabled = true
+  # in your values.yaml for kube-prometheus-stack chart
+  kubeApiserverSlos:
+    enabled: false
+    disabledRules: []
+
+  kubernetesApps:
+    enabled: true
+    disabledRules:
+      - KubeHpaMaxedOut
+
+  kubernetesResources:
+    enabled: true
+    disabledRules:
+      - KubeCPUQuotaOvercommit
+      - KubeMemoryQuotaOvercommit
+      - KubeQuotaAlmostFull
+      - KubeQuotaFullyUsed
+      - KubeQuotaExceeded
+
+  kubernetesStorage:
+    enabled: true
+    disabledRules: []
+
+  # If you want to use this rule group
+  # you must have prometheusOperator.kubeletService.enabled = true
+  # and kubeApiServer.enabled = true
+  # in your values.yaml for kube-prometheus-stack chart
+  kubernetesSystem:
+    enabled: true
+    disabledRules:
+      - KubeletTooManyPods
+      - KubeVersionMismatch
+
+  # If you want to use this rule group
+  # you must have kubeScheduler.enabled = true
+  # in your values.yaml for kube-prometheus-stack chart
+  kubeScheduler:
+    enabled: false
+    disabledRules: []
+
+  kubeStateMetrics:
+    enabled: true
+    disabledRules: []
+
+  network:
+    enabled: true
+    disabledRules: []
+
+  node:
+    enabled: true
+    disabledRules: []
+
+  prometheus:
+    enabled: true
+    disabledRules: []
+
+  prometheusOperator:
+    enabled: true
+    disabledRules: []
+
+# job name for alertmanager in cluster
+# you can check yours in Grafana's Explore tab using metric 'alertmanager_config_hash'
+alertmanagerJob: "prometheus-operator-kube-p-alertmanager"
+# job name for prometheus operator in cluster
+# you can check yours in Grafana's Explore tab using metric 'prometheus_operator_ready'
+operatorJob: "prometheus-operator-kube-p-operator"
+# job name for prometheus instance in cluster
+# you can check yours in Grafana's Explore tab using metric 'prometheus_config_last_reload_successful'
+prometheusJob: "prometheus-operator-kube-p-prometheus"
+
+#
+# Values below was extracted from values.yaml for kube-prometheus-stack chart
+#
+
+# Runbook url prefix for rules
+runbookUrl: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#
+
+# Reduce app namespace alert scope
+appNamespacesTarget: ".*"
+
+# Labels for PrometheusRules
+labels: {}
+
+# Annotations for PrometheusRules
+annotations: {}
+
+# Additional labels for PrometheusRules' alerts
+additionalRuleLabels:
+  responsible: ops

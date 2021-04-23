@@ -1,0 +1,98 @@
+---
+{{- if .Values.ruleGroups.kubeApiserverSlos.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ printf "%s-%s" (include "infrastructure-alerts.fullname" .) "kube-apiserver-slos" | trunc 63 | trimSuffix "-" }}
+  namespace: {{ template "infrastructure-alerts.namespace" . }}
+  labels:
+    app: {{ template "infrastructure-alerts.name" . }}
+    {{- include "infrastructure-alerts.labels" . | nindent 4 }}
+    {{- if .Values.labels }}
+    {{- toYaml .Values.labels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.annotations }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  groups:
+  - name: kube-apiserver-slos
+    rules:
+    {{- if not (has "KubeAPIErrorBudgetBurn" .Values.ruleGroups.kubeApiserverSlos.disabledRules)}}
+    - alert: KubeAPIErrorBudgetBurn
+      annotations:
+        description: The API server is burning too much error budget.
+        runbook_url: {{ .Values.runbookUrl }}alert-name-kubeapierrorbudgetburn
+        summary: The API server is burning too much error budget.
+      expr: |-
+        sum(apiserver_request:burnrate1h) > (14.40 * 0.01000)
+        and
+        sum(apiserver_request:burnrate5m) > (14.40 * 0.01000)
+      for: 2m
+      labels:
+        long: 1h
+        severity: dangerous
+        short: 5m
+        {{- if .Values.additionalRuleLabels }}
+        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
+        {{- end }}
+    {{- end }}
+    {{- if not (has "KubeAPIErrorBudgetBurn" .Values.ruleGroups.kubeApiserverSlos.disabledRules)}}
+    - alert: KubeAPIErrorBudgetBurn
+      annotations:
+        description: The API server is burning too much error budget.
+        runbook_url: {{ .Values.runbookUrl }}alert-name-kubeapierrorbudgetburn
+        summary: The API server is burning too much error budget.
+      expr: |-
+        sum(apiserver_request:burnrate6h) > (6.00 * 0.01000)
+        and
+        sum(apiserver_request:burnrate30m) > (6.00 * 0.01000)
+      for: 15m
+      labels:
+        long: 6h
+        severity: dangerous
+        short: 30m
+        {{- if .Values.additionalRuleLabels }}
+        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
+        {{- end }}
+    {{- end }}
+    {{- if not (has "KubeAPIErrorBudgetBurn" .Values.ruleGroups.kubeApiserverSlos.disabledRules)}}
+    - alert: KubeAPIErrorBudgetBurn
+      annotations:
+        description: The API server is burning too much error budget.
+        runbook_url: {{ .Values.runbookUrl }}alert-name-kubeapierrorbudgetburn
+        summary: The API server is burning too much error budget.
+      expr: |-
+        sum(apiserver_request:burnrate1d) > (3.00 * 0.01000)
+        and
+        sum(apiserver_request:burnrate2h) > (3.00 * 0.01000)
+      for: 1h
+      labels:
+        long: 1d
+        severity: warning
+        short: 2h
+        {{- if .Values.additionalRuleLabels }}
+        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
+        {{- end }}
+    {{- end }}
+    {{- if not (has "KubeAPIErrorBudgetBurn" .Values.ruleGroups.kubeApiserverSlos.disabledRules)}}
+    - alert: KubeAPIErrorBudgetBurn
+      annotations:
+        description: The API server is burning too much error budget.
+        runbook_url: {{ .Values.runbookUrl }}alert-name-kubeapierrorbudgetburn
+        summary: The API server is burning too much error budget.
+      expr: |-
+        sum(apiserver_request:burnrate3d) > (1.00 * 0.01000)
+        and
+        sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
+      for: 3h
+      labels:
+        long: 3d
+        severity: warning
+        short: 6h
+        {{- if .Values.additionalRuleLabels }}
+        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
+        {{- end }}
+    {{- end }}
+{{- end }}

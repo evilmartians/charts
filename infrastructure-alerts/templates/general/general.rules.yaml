@@ -1,0 +1,55 @@
+---
+{{- if .Values.ruleGroups.general.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ printf "%s-%s" (include "infrastructure-alerts.fullname" .) "general.rules" | trunc 63 | trimSuffix "-" }}
+  namespace: {{ template "infrastructure-alerts.namespace" . }}
+  labels:
+    app: {{ template "infrastructure-alerts.name" . }}
+    {{- include "infrastructure-alerts.labels" . | nindent 4 }}
+    {{- if .Values.labels }}
+    {{- toYaml .Values.labels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.annotations }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  groups:
+  - name: general.rules
+    rules:
+    {{- if not (has "TargetDown" .Values.ruleGroups.general.disabledRules)}}
+    - alert: TargetDown
+      annotations:
+        message: '{{`{{`}} printf "%.4g" $value {{`}}`}}% of the {{`{{`}} $labels.job {{`}}`}}/{{`{{`}} $labels.service {{`}}`}} targets in {{`{{`}} $labels.namespace {{`}}`}} namespace are down.'
+      expr: 100 * (count(up == 0) BY (job, namespace, service) / count(up) BY (job, namespace, service)) > 10
+      for: 10m
+      labels:
+        severity: warning
+        {{- if .Values.additionalRuleLabels }}
+        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
+        {{- end }}
+    {{- end }}
+    {{- if not (has "Watchdog" .Values.ruleGroups.general.disabledRules)}}
+    - alert: Watchdog
+      annotations:
+        message: 'This is an alert meant to ensure that the entire alerting pipeline is functional.
+
+          This alert is always firing, therefore it should always be firing in Alertmanager
+
+          and always fire against a receiver. There are integrations with various notification
+
+          mechanisms that send a notification when this alert is not firing. For example the
+
+          "DeadMansSnitch" integration in PagerDuty.
+
+          '
+      expr: vector(1)
+      labels:
+        severity: none
+        {{- if .Values.additionalRuleLabels }}
+        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
+        {{- end }}
+    {{- end }}
+{{- end }}

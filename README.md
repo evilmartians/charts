@@ -14,3 +14,4 @@ helm repo add evilmartians https://helm.evilmartians.net
 
 * [cloudsql-backup](https://github.com/evilmartians/charts/tree/master/cloudsql-backup/)
 * [cloudsql-backup-check](https://github.com/evilmartians/charts/tree/master/cloudsql-backup-check/)
+* [infrastructure-alerts](https://github.com/evilmartians/charts/tree/master/infrastructure-alerts/)
