@@ -45,6 +45,7 @@ ruleGroups:
       - KubeQuotaAlmostFull
       - KubeQuotaFullyUsed
       - KubeQuotaExceeded
+      - CPUThrottlingHigh
 
   kubernetesStorage:
     enabled: true
