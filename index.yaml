@@ -3,7 +3,7 @@ entries:
   cloudsql-backup:
   - apiVersion: v2
     appVersion: 0.12.0
-    created: "2021-04-30T18:45:55.240386811+03:00"
+    created: "2021-05-06T16:13:27.438851489+03:00"
     description: A Helm chart for periodical backup of cloud postgresql
     digest: 1a1e6c6c1c90367c485538977273f9b798f9e23ea27cc8fbab0984beb1afd31c
     maintainers:
@@ -17,7 +17,7 @@ entries:
     version: 0.6.1
   - apiVersion: v2
     appVersion: 0.12.0
-    created: "2021-04-30T18:45:55.240043262+03:00"
+    created: "2021-05-06T16:13:27.438512093+03:00"
     description: A Helm chart for periodical backup of cloud postgresql
     digest: 78741d7b8f2337a1965db3f143dee8d08ae203396e389ae5a26cf92c0ce1fc35
     maintainers:
@@ -31,7 +31,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: 0.9.6
-    created: "2021-04-30T18:45:55.239677074+03:00"
+    created: "2021-05-06T16:13:27.438187476+03:00"
     description: A Helm chart for periodical backup of cloud postgresql
     digest: aba7ab6f53bf1c923f8f52710da52ba186966c5e518e0fc2e8079a1b5a4c3f73
     maintainers:
@@ -45,7 +45,7 @@ entries:
     version: 0.5.2
   - apiVersion: v2
     appVersion: 0.9.6
-    created: "2021-04-30T18:45:55.239312928+03:00"
+    created: "2021-05-06T16:13:27.437861437+03:00"
     description: A Helm chart for periodical backup of cloud postgresql
     digest: ff96b284fe6cc4b2b64a4c3dc561504683da9573d739d1363fe42358bef16f6b
     maintainers:
@@ -59,7 +59,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.9.6
-    created: "2021-04-30T18:45:55.238991137+03:00"
+    created: "2021-05-06T16:13:27.437548622+03:00"
     description: A Helm chart for periodical backup of cloud postgresql
     digest: e518f180d2c27a25b4a3c1274b8c7dcda52c87857dcc421b7939126d84b6dbfb
     maintainers:
@@ -73,7 +73,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.9.6
-    created: "2021-04-30T18:45:55.238656267+03:00"
+    created: "2021-05-06T16:13:27.437241292+03:00"
     description: A Helm chart for periodical backup of google cloud postgres
     digest: 98ad011eae1ff0ecb5a9373ec1baff48d2c9842214a9fb86839666604007f288
     maintainers:
@@ -87,7 +87,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2021-04-30T18:45:55.238308363+03:00"
+    created: "2021-05-06T16:13:27.436948508+03:00"
     description: A Helm chart for periodical backup of google cloud postgres
     digest: 5606bca1a92417bbeff676bdb8b6b525f222704104a8a1184c727452f201a9ac
     maintainers:
@@ -101,7 +101,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2021-04-30T18:45:55.238023798+03:00"
+    created: "2021-05-06T16:13:27.436678689+03:00"
     description: A Helm chart for periodical backup of google cloud postgres
     digest: f9f9524ccc53cd5ae4447b6f0ebda95019ca12ae7e5c3a2ba3d459aab7470b55
     maintainers:
@@ -115,7 +115,7 @@ entries:
     version: 0.3.4
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2021-04-30T18:45:55.237746479+03:00"
+    created: "2021-05-06T16:13:27.436396201+03:00"
     description: A Helm chart for periodical backup of google cloud postgres
     digest: 08c8bbd2479cc500021ad3398efb35c07e06311458d5419fd02dc098efebc9d8
     maintainers:
@@ -129,7 +129,7 @@ entries:
     version: 0.3.3
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2021-04-30T18:45:55.237426609+03:00"
+    created: "2021-05-06T16:13:27.436113014+03:00"
     description: A Helm chart for periodical backup of google cloud postgres
     digest: 86301c457b8c19cc79bd2dcd40ad1326744cd306a213a2528e9db8b54eb701ca
     maintainers:
@@ -143,7 +143,7 @@ entries:
     version: 0.3.2
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2021-04-30T18:45:55.237148429+03:00"
+    created: "2021-05-06T16:13:27.435797522+03:00"
     description: A Helm chart for periodical backup of google cloud postgres
     digest: bd07928b8d235140e16484f27ac9a82ad8e0a5d435e35c88a48f9715d3fc0b20
     maintainers:
@@ -157,7 +157,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2021-04-30T18:45:55.236818154+03:00"
+    created: "2021-05-06T16:13:27.435504873+03:00"
     description: A Helm chart for periodical backup of google cloud postgres
     digest: 23b2846e74e145c78d2ab4ea186cfba617d576633f7b2acf114610d2920a2921
     maintainers:
@@ -171,7 +171,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2021-04-30T18:45:55.236517818+03:00"
+    created: "2021-05-06T16:13:27.435161847+03:00"
     description: A Helm chart for periodical backup of google cloud postgres
     digest: 531900154d3e941fe90a54bc0826bef826315ee9526ee7df98b31495adc00856
     maintainers:
@@ -186,7 +186,7 @@ entries:
   cloudsql-backup-check:
   - apiVersion: v2
     appVersion: 2.10.5
-    created: "2021-04-30T18:45:55.241991596+03:00"
+    created: "2021-05-06T16:13:27.43978332+03:00"
     description: A Helm chart for checking PostgreSQL backup integrity
     digest: 6ed9fe226b8c1df02f1bdc64abc1ac3a113b5b8a1cb30e8f8ac8995170b8c6e8
     maintainers:
@@ -198,7 +198,7 @@ entries:
     version: 0.2.2
   - apiVersion: v2
     appVersion: 2.10.5
-    created: "2021-04-30T18:45:55.241739028+03:00"
+    created: "2021-05-06T16:13:27.439533123+03:00"
     description: A Helm chart for checking PostgreSQL backup integrity
     digest: 87f2483796781ee40446052018bea250f24a683539749edf413ee2ecd60e3480
     maintainers:
@@ -210,7 +210,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: 2.10.5
-    created: "2021-04-30T18:45:55.241474201+03:00"
+    created: "2021-05-06T16:13:27.439299012+03:00"
     description: A Helm chart for checking PostgreSQL backup integrity
     digest: 5cb934ccb35567d586b83bb880eada0e916e59d0b863172d8ecab9dc7bb70ca8
     maintainers:
@@ -222,7 +222,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 2.10.5
-    created: "2021-04-30T18:45:55.24066213+03:00"
+    created: "2021-05-06T16:13:27.439062113+03:00"
     description: A Helm chart for checking PostgreSQL backup integrity
     digest: 8d2ba439e6fb84146e729d78a368f4b7218cfb1270b3947774fdffa95112eeb2
     maintainers:
@@ -235,7 +235,19 @@ entries:
   infrastructure-alerts:
   - apiVersion: v2
     appVersion: 14.6.2
-    created: "2021-04-30T18:45:55.243339979+03:00"
+    created: "2021-05-06T16:13:27.44243673+03:00"
+    description: A Helm chart with tuned PrometheusRules from kube-prometheus-stack chart
+    digest: b89b4d2b2e107d4b2a2e1460f9f9bbddee64324f3048bf59242dbb32b60a3d24
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: infrastructure-alerts
+    urls:
+    - infrastructure-alerts-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 14.6.2
+    created: "2021-05-06T16:13:27.441755326+03:00"
     description: A Helm chart with tuned PrometheusRules from kube-prometheus-stack chart
     digest: b23da3a59ffea02d8c7ec45c2698b047c4b597dff59885b7fb2293d1881ff0b6
     maintainers:
@@ -247,7 +259,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 14.6.2
-    created: "2021-04-30T18:45:55.242663115+03:00"
+    created: "2021-05-06T16:13:27.440523702+03:00"
     description: A Helm chart with tuned PrometheusRules from kube-prometheus-stack chart
     digest: 87eb52859bacb6db950123768004fa25eac1931bf9e4143f3638f861341c41da
     maintainers:
@@ -257,4 +269,4 @@ entries:
     urls:
     - infrastructure-alerts-0.1.0.tgz
     version: 0.1.0
-generated: "2021-04-30T18:45:55.236111298+03:00"
+generated: "2021-05-06T16:13:27.434279399+03:00"
