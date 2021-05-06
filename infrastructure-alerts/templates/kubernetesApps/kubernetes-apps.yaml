@@ -23,7 +23,7 @@ spec:
     {{- if not (has "KubePodCrashLooping" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubePodCrashLooping
       annotations:
-        description: Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} ({{`{{`}} $labels.container {{`}}`}}) is restarting {{`{{`}} printf "%.2f" $value {{`}}`}} times / 10 minutes.
+        message: Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} ({{`{{`}} $labels.container {{`}}`}}) is restarting {{`{{`}} printf "%.2f" $value {{`}}`}} times / 10 minutes.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubepodcrashlooping
         summary: Pod is crash looping.
       expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}[10m]) * 60 * 10 > 0
@@ -37,7 +37,7 @@ spec:
     {{- if not (has "KubePodNotReady" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubePodNotReady
       annotations:
-        description: Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} has been in a non-ready state for longer than 30 minutes.
+        message: Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} has been in a non-ready state for longer than 30 minutes.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubepodnotready
         summary: Pod has been in a non-ready state for more than 30 minutes.
       expr: |-
@@ -58,7 +58,7 @@ spec:
     {{- if not (has "KubeDeploymentGenerationMismatch" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeDeploymentGenerationMismatch
       annotations:
-        description: Deployment generation for {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.deployment {{`}}`}} does not match, this indicates that the Deployment has failed but has not been rolled back.
+        message: Deployment generation for {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.deployment {{`}}`}} does not match, this indicates that the Deployment has failed but has not been rolled back.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubedeploymentgenerationmismatch
         summary: Deployment generation mismatch due to possible roll-back
       expr: |-
@@ -75,7 +75,7 @@ spec:
     {{- if not (has "KubeDeploymentReplicasMismatch" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeDeploymentReplicasMismatch
       annotations:
-        description: Deployment {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.deployment {{`}}`}} has not matched the expected number of replicas for longer than 15 minutes.
+        message: Deployment {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.deployment {{`}}`}} has not matched the expected number of replicas for longer than 15 minutes.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubedeploymentreplicasmismatch
         summary: Deployment has not matched the expected number of replicas.
       expr: |-
@@ -98,7 +98,7 @@ spec:
     {{- if not (has "KubeStatefulSetReplicasMismatch" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeStatefulSetReplicasMismatch
       annotations:
-        description: StatefulSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}} has not matched the expected number of replicas for longer than 15 minutes.
+        message: StatefulSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}} has not matched the expected number of replicas for longer than 15 minutes.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubestatefulsetreplicasmismatch
         summary: Deployment has not matched the expected number of replicas.
       expr: |-
@@ -121,7 +121,7 @@ spec:
     {{- if not (has "KubeStatefulSetGenerationMismatch" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeStatefulSetGenerationMismatch
       annotations:
-        description: StatefulSet generation for {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}} does not match, this indicates that the StatefulSet has failed but has not been rolled back.
+        message: StatefulSet generation for {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}} does not match, this indicates that the StatefulSet has failed but has not been rolled back.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubestatefulsetgenerationmismatch
         summary: StatefulSet generation mismatch due to possible roll-back
       expr: |-
@@ -138,7 +138,7 @@ spec:
     {{- if not (has "KubeStatefulSetUpdateNotRolledOut" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeStatefulSetUpdateNotRolledOut
       annotations:
-        description: StatefulSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}} update has not been rolled out.
+        message: StatefulSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.statefulset {{`}}`}} update has not been rolled out.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubestatefulsetupdatenotrolledout
         summary: StatefulSet update has not been rolled out.
       expr: |-
@@ -169,7 +169,7 @@ spec:
     {{- if not (has "KubeDaemonSetRolloutStuck" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeDaemonSetRolloutStuck
       annotations:
-        description: DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} has not finished or progressed for at least 15 minutes.
+        message: DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} has not finished or progressed for at least 15 minutes.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubedaemonsetrolloutstuck
         summary: DaemonSet rollout is stuck.
       expr: |-
@@ -206,7 +206,7 @@ spec:
     {{- if not (has "KubeContainerWaiting" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeContainerWaiting
       annotations:
-        description: Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} container {{`{{`}} $labels.container{{`}}`}} has been in waiting state for longer than 1 hour.
+        message: Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} container {{`{{`}} $labels.container{{`}}`}} has been in waiting state for longer than 1 hour.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubecontainerwaiting
         summary: Pod container waiting longer than 5 minutes
       expr: sum by (namespace, pod, container) (kube_pod_container_status_waiting_reason{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}) > 0
@@ -220,7 +220,7 @@ spec:
     {{- if not (has "KubeContainerWaiting" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeContainerWaiting
       annotations:
-        description: Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} container {{`{{`}} $labels.container{{`}}`}} has been in waiting state for longer than 1 hour.
+        message: Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} container {{`{{`}} $labels.container{{`}}`}} has been in waiting state for longer than 1 hour.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubecontainerwaiting
         summary: Pod container waiting longer than 1 hour
       expr: sum by (namespace, pod, container) (kube_pod_container_status_waiting_reason{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}) > 0
@@ -234,7 +234,7 @@ spec:
     {{- if not (has "KubeDaemonSetNotScheduled" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeDaemonSetNotScheduled
       annotations:
-        description: '{{`{{`}} $value {{`}}`}} Pods of DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} are not scheduled.'
+        message: '{{`{{`}} $value {{`}}`}} Pods of DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} are not scheduled.'
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubedaemonsetnotscheduled
         summary: DaemonSet pods are not scheduled.
       expr: |-
@@ -251,7 +251,7 @@ spec:
     {{- if not (has "KubeDaemonSetMisScheduled" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeDaemonSetMisScheduled
       annotations:
-        description: '{{`{{`}} $value {{`}}`}} Pods of DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} are running where they are not supposed to run.'
+        message: '{{`{{`}} $value {{`}}`}} Pods of DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} are running where they are not supposed to run.'
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubedaemonsetmisscheduled
         summary: DaemonSet pods are misscheduled.
       expr: kube_daemonset_status_number_misscheduled{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"} > 0
@@ -265,7 +265,7 @@ spec:
     {{- if not (has "KubeJobCompletion" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeJobCompletion
       annotations:
-        description: Job {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.job_name {{`}}`}} is taking more than 12 hours to complete.
+        message: Job {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.job_name {{`}}`}} is taking more than 12 hours to complete.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubejobcompletion
         summary: Job did not complete in time
       expr: kube_job_spec_completions{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"} - kube_job_status_succeeded{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}  > 0
@@ -279,7 +279,7 @@ spec:
     {{- if not (has "KubeJobFailed" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeJobFailed
       annotations:
-        description: Job {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.job_name {{`}}`}} failed to complete. Removing failed job after investigation should clear this alert.
+        message: Job {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.job_name {{`}}`}} failed to complete. Removing failed job after investigation should clear this alert.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubejobfailed
         summary: Job failed to complete.
       expr: kube_job_failed{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"} > 0
@@ -293,7 +293,7 @@ spec:
     {{- if not (has "KubeHpaReplicasMismatch" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeHpaReplicasMismatch
       annotations:
-        description: HPA {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.hpa {{`}}`}} has not matched the desired number of replicas for longer than 15 minutes.
+        message: HPA {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.hpa {{`}}`}} has not matched the desired number of replicas for longer than 15 minutes.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubehpareplicasmismatch
         summary: HPA has not matched descired number of replicas.
       expr: |-
@@ -320,7 +320,7 @@ spec:
     {{- if not (has "KubeHpaMaxedOut" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubeHpaMaxedOut
       annotations:
-        description: HPA {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.hpa {{`}}`}} has been running at max replicas for longer than 15 minutes.
+        message: HPA {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.hpa {{`}}`}} has been running at max replicas for longer than 15 minutes.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubehpamaxedout
         summary: HPA is running at max replicas
       expr: |-

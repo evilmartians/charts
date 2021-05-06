@@ -22,7 +22,7 @@ spec:
     {{- if not (has "KubeAPIErrorBudgetBurn" .Values.ruleGroups.kubeApiserverSlos.disabledRules)}}
     - alert: KubeAPIErrorBudgetBurn
       annotations:
-        description: The API server is burning too much error budget.
+        message: The API server is burning too much error budget.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubeapierrorbudgetburn
         summary: The API server is burning too much error budget.
       expr: |-
@@ -41,7 +41,7 @@ spec:
     {{- if not (has "KubeAPIErrorBudgetBurn" .Values.ruleGroups.kubeApiserverSlos.disabledRules)}}
     - alert: KubeAPIErrorBudgetBurn
       annotations:
-        description: The API server is burning too much error budget.
+        message: The API server is burning too much error budget.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubeapierrorbudgetburn
         summary: The API server is burning too much error budget.
       expr: |-
@@ -60,7 +60,7 @@ spec:
     {{- if not (has "KubeAPIErrorBudgetBurn" .Values.ruleGroups.kubeApiserverSlos.disabledRules)}}
     - alert: KubeAPIErrorBudgetBurn
       annotations:
-        description: The API server is burning too much error budget.
+        message: The API server is burning too much error budget.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubeapierrorbudgetburn
         summary: The API server is burning too much error budget.
       expr: |-
@@ -79,7 +79,7 @@ spec:
     {{- if not (has "KubeAPIErrorBudgetBurn" .Values.ruleGroups.kubeApiserverSlos.disabledRules)}}
     - alert: KubeAPIErrorBudgetBurn
       annotations:
-        description: The API server is burning too much error budget.
+        message: The API server is burning too much error budget.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubeapierrorbudgetburn
         summary: The API server is burning too much error budget.
       expr: |-
