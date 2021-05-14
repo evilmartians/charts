@@ -64,7 +64,7 @@ spec:
           /
         sum(rate(grpc_server_handled_total{job=~".*etcd.*"}[5m])) BY (job, instance, grpc_service, grpc_method)
           > 1
-      for: 10m
+      for: 30m
       labels:
         severity: warning
         {{- if .Values.additionalRuleLabels }}
@@ -80,7 +80,7 @@ spec:
           /
         sum(rate(grpc_server_handled_total{job=~".*etcd.*"}[5m])) BY (job, instance, grpc_service, grpc_method)
           > 5
-      for: 5m
+      for: 10m
       labels:
         severity: dangerous
         {{- if .Values.additionalRuleLabels }}
@@ -94,7 +94,7 @@ spec:
       expr: |-
         histogram_quantile(0.99, sum(rate(grpc_server_handling_seconds_bucket{job=~".*etcd.*", grpc_type="unary"}[5m])) by (job, instance, grpc_service, grpc_method, le))
         > 0.15
-      for: 10m
+      for: 30m
       labels:
         severity: dangerous
         {{- if .Values.additionalRuleLabels }}
@@ -108,7 +108,7 @@ spec:
       expr: |-
         histogram_quantile(0.99, rate(etcd_network_peer_round_trip_time_seconds_bucket{job=~".*etcd.*"}[5m]))
         > 0.15
-      for: 10m
+      for: 30m
       labels:
         severity: warning
         {{- if .Values.additionalRuleLabels }}
@@ -120,7 +120,7 @@ spec:
       annotations:
         message: 'etcd cluster "{{`{{`}} $labels.job {{`}}`}}": {{`{{`}} $value {{`}}`}} proposal failures within the last hour on etcd instance {{`{{`}} $labels.instance {{`}}`}}.'
       expr: rate(etcd_server_proposals_failed_total{job=~".*etcd.*"}[15m]) > 5
-      for: 15m
+      for: 30m
       labels:
         severity: warning
         {{- if .Values.additionalRuleLabels }}
@@ -134,7 +134,7 @@ spec:
       expr: |-
         histogram_quantile(0.99, rate(etcd_disk_wal_fsync_duration_seconds_bucket{job=~".*etcd.*"}[5m]))
         > 0.5
-      for: 10m
+      for: 30m
       labels:
         severity: warning
         {{- if .Values.additionalRuleLabels }}
@@ -162,7 +162,7 @@ spec:
       expr: |-
         sum(rate(etcd_http_failed_total{job=~".*etcd.*", code!="404"}[5m])) BY (method) / sum(rate(etcd_http_received_total{job=~".*etcd.*"}[5m]))
         BY (method) > 0.01
-      for: 10m
+      for: 30m
       labels:
         severity: warning
         {{- if .Values.additionalRuleLabels }}
@@ -176,7 +176,7 @@ spec:
       expr: |-
         sum(rate(etcd_http_failed_total{job=~".*etcd.*", code!="404"}[5m])) BY (method) / sum(rate(etcd_http_received_total{job=~".*etcd.*"}[5m]))
         BY (method) > 0.05
-      for: 10m
+      for: 15m
       labels:
         severity: dangerous
         {{- if .Values.additionalRuleLabels }}
@@ -190,7 +190,7 @@ spec:
       expr: |-
         histogram_quantile(0.99, rate(etcd_http_successful_duration_seconds_bucket[5m]))
         > 0.15
-      for: 10m
+      for: 30m
       labels:
         severity: warning
         {{- if .Values.additionalRuleLabels }}
