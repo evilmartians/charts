@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.1.3 (14.05.2021)
+- Increase for-period of etcd rules
+
 # 0.1.2 (06.05.2021)
 - Rename all "description" annotations to "message"
 
