@@ -1,33 +1,41 @@
 ---
-- name: Restore database from backup
-  shell:
-    cmd: |
-      set -o pipefail
-      restic dump {{ snapshot }} /{{ database_name }}.dump | pg_restore --clean --create --exit-on-error --if-exists --no-privileges --no-owner --dbname postgres
-    executable: /bin/bash
-  become_user: postgres
-  environment:
-    AWS_ACCESS_KEY_ID: "{{ restic_aws_access_key }}"
-    AWS_SECRET_ACCESS_KEY: "{{ restic_aws_secret_key }}"
-    RESTIC_PASSWORD: "{{ restic_password }}"
-    RESTIC_REPOSITORY: "{{ restic_repository }}"
-  async: "{{ restoration_timeout }}"
-  poll: 5
-  retries: 3
-  delay: 5
-  register: result
-  until: result.rc == 0
+- name: Restore database from backup block
+  block:
+  - name: Restore database from backup
+    shell:
+      cmd: |
+        set -o pipefail
+        restic dump {{ snapshot }} /{{ database_name }}.dump | pg_restore --clean --create --exit-on-error --if-exists --no-privileges --no-owner --dbname postgres
+      executable: /bin/bash
+    become_user: postgres
+    environment:
+      AWS_ACCESS_KEY_ID: "{{ restic_aws_access_key }}"
+      AWS_SECRET_ACCESS_KEY: "{{ restic_aws_secret_key }}"
+      RESTIC_PASSWORD: "{{ restic_password }}"
+      RESTIC_REPOSITORY: "{{ restic_repository }}"
+    async: "{{ restoration_timeout }}"
+    poll: 5
+    retries: 1
+    delay: 5
+    register: restore_result
+    until: restore_result.rc == 0
 
-- name: Unlock restic repository
-  shell:
-    cmd: restic unlock
-    executable: /bin/bash
-  environment:
-    AWS_ACCESS_KEY_ID: "{{ restic_aws_access_key }}"
-    AWS_SECRET_ACCESS_KEY: "{{ restic_aws_secret_key }}"
-    RESTIC_PASSWORD: "{{ restic_password }}"
-    RESTIC_REPOSITORY: "{{ restic_repository }}"
-  retries: 3
-  delay: 5
-  register: result
-  until: result.rc == 0
+  rescue:
+  - name: Print when errors
+    debug:
+      msg: "Error found. stderr: '{{ restore_result.stderr }}'. stdout: '{{ restore_result.stdout }}'"
+
+  always:
+  - name: Unlock restic repository
+    shell:
+      cmd: restic unlock
+      executable: /bin/bash
+    environment:
+      AWS_ACCESS_KEY_ID: "{{ restic_aws_access_key }}"
+      AWS_SECRET_ACCESS_KEY: "{{ restic_aws_secret_key }}"
+      RESTIC_PASSWORD: "{{ restic_password }}"
+      RESTIC_REPOSITORY: "{{ restic_repository }}"
+    retries: 3
+    delay: 5
+    register: result
+    until: result.rc == 0
