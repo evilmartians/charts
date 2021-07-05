@@ -19,7 +19,13 @@
     update_cache: true
     state: present
 
-- name: Ensure PostgreSQL is started.
+- name: Create postgresql.conf with additional settings
+  copy:
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/conf.d/postgresql.conf"
+    content: |
+      autovacuum = off
+
+- name: Ensure PostgreSQL is restarted.
   service:
     name: postgresql
-    state: started
+    state: restarted

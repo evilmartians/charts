@@ -1,4 +1,4 @@
-FROM alpine:3.13.2
+FROM alpine:3.14.0
 
 RUN apk add --no-cache ansible openssh-client py3-boto3 py3-boto
 
