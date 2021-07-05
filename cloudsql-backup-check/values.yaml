@@ -81,5 +81,5 @@ databases: []
 ansible_backup_check:
   image:
     repository: quay.io/evl.ms/ansible-postgresql-backup-check
-    tag: 20210615-alpine
+    tag: 20210705-alpine
     pullPolicy: IfNotPresent
