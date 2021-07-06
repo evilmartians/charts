@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.2.0 (06.07.2021)
+- Synchronize rules with kube-prometheus-stack version 15.4.6
+
 # 0.1.3 (14.05.2021)
 - Increase for-period of etcd rules
 
