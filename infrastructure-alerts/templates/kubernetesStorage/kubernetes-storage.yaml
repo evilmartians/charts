@@ -27,10 +27,13 @@ spec:
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubepersistentvolumefillingup
         summary: PersistentVolume is filling up.
       expr: |-
-        kubelet_volume_stats_available_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}
-          /
-        kubelet_volume_stats_capacity_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}
-          < 0.25
+        (
+          kubelet_volume_stats_available_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}
+            /
+          kubelet_volume_stats_capacity_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}
+        ) < 0.25
+        and
+        kubelet_volume_stats_used_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"} > 0
       for: 1m
       labels:
         severity: warning
@@ -45,10 +48,13 @@ spec:
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubepersistentvolumefillingup
         summary: PersistentVolume is filling up.
       expr: |-
-        kubelet_volume_stats_available_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}
-          /
-        kubelet_volume_stats_capacity_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}
-          < 0.01
+        (
+          kubelet_volume_stats_available_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}
+            /
+          kubelet_volume_stats_capacity_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}
+        ) < 0.01
+        and
+        kubelet_volume_stats_used_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"} > 0
       for: 1m
       labels:
         severity: dangerous
@@ -68,6 +74,8 @@ spec:
             /
           kubelet_volume_stats_capacity_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}
         ) < 0.15
+        and
+        kubelet_volume_stats_used_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"} > 0
         and
         predict_linear(kubelet_volume_stats_available_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}[6h], 4 * 24 * 3600) < 0
       for: 1h
@@ -89,6 +97,8 @@ spec:
             /
           kubelet_volume_stats_capacity_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}
         ) < 0.15
+        and
+        kubelet_volume_stats_used_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"} > 0
         and
         predict_linear(kubelet_volume_stats_available_bytes{job="kubelet", namespace=~"{{ $targetNamespace }}", metrics_path="/metrics"}[6h], 12 * 3600) < 0
       for: 1h
