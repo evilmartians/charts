@@ -5,7 +5,7 @@ description: Creating cert-manager ClusterIssuers (support only ACME)
 name: cert-manager-issuers
 version: 0.1.0
 maintainers:
-  - name: Ilya Nemakov
-    email: reuuke@evilmartians.com
   - name: Ilya Cherepanov
     email: deponian@evilmartians.com
+  - name: Ilya Nemakov
+    email: reuuke@evilmartians.com
