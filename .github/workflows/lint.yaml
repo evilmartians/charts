@@ -1,9 +1,6 @@
 name: Lint Charts
 
 on:
-  push:
-    branches:
-      - gh-actions
   pull_request:
     branches:
       - '*'
