@@ -1,0 +1,12 @@
+---
+apiVersion: v2
+description: A Helm chart with Priority Classes
+appVersion: "1.0.0"
+name: priority-classes
+version: 0.1.0
+maintainers:
+  - name: Ilya Nemakov
+    email: reuuke@evilmartians.com
+  - name: Ilya Cherepanov
+    email: deponian@evilmartians.com
+
