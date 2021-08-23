@@ -3,6 +3,20 @@ entries:
   cert-manager-issuers:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2021-08-23T21:28:32.887662988Z"
+    description: Creating cert-manager ClusterIssuers (support only ACME)
+    digest: 771b2f9f8bc4187b4671da08d34017efcc80352684587db1956d6191e9ba32b1
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    - email: reuuke@evilmartians.com
+      name: Ilya Nemakov
+    name: cert-manager-issuers
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/cert-manager-issuers-0.1.2/cert-manager-issuers-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2021-08-23T21:23:23.119381333Z"
     description: Creating cert-manager ClusterIssuers (support only ACME)
     digest: eab30b060204364de8675ac4f1d18cb3f5d284a015e45c6c5325e39871853c74
@@ -395,4 +409,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2021-08-23T21:23:23.119831962Z"
+generated: "2021-08-23T21:28:32.887812989Z"
