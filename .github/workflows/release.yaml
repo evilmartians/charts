@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - master
 
 jobs:
   release:
@@ -28,5 +29,6 @@ jobs:
         uses: helm/chart-releaser-action@v1.1.0
         with:
           charts_dir: charts
+          charts_repo_url: https://helm.evilmartians.net
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
