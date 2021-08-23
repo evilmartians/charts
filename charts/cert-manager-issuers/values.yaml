@@ -1,0 +1,11 @@
+issuer:
+  apiVersion: cert-manager.io/v1
+  email:
+  server:
+    enabled: true
+    url: https://acme-v02.api.letsencrypt.org/directory
+  stagingServer:
+    enabled: true
+    url: https://acme-staging-v02.api.letsencrypt.org/directory
+
+solvers: {}
