@@ -353,6 +353,19 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/infrastructure-alerts-0.1.0/infrastructure-alerts-0.1.0.tgz
     version: 0.1.0
+  overprovisioning:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2021-08-23T21:06:43.208177683Z"
+    description: A Helm chart for creating deployment(s) for cluster overprovisioning.
+    digest: 845fec6c4f1e8c892cec16943cb9be9033256c2916574fcad85091465c183b08
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: overprovisioning
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/overprovisioning-0.1.0/overprovisioning-0.1.0.tgz
+    version: 0.1.0
   priority-classes:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -368,4 +381,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2021-08-23T16:26:47.305918957Z"
+generated: "2021-08-23T21:06:43.208251284Z"
