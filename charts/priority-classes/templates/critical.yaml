@@ -1,0 +1,9 @@
+---
+apiVersion: scheduling.k8s.io/v1
+description: Default priority class
+kind: PriorityClass
+metadata:
+  name: critical
+value: 2000
+globalDefault: false
+description: "Priority class used for critical applications"
