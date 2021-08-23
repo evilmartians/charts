@@ -1,0 +1,29 @@
+{{- range .Values.placeholders }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: placeholder-{{ .name }}
+  labels: {{ include "overprovisioning.labels" $ | nindent 4 }}
+spec:
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels: {{- toYaml .labels | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- toYaml .labels | nindent 8 }}
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: {{ .nodeAffinity.weight }}
+            preference:
+              matchExpressions: {{- toYaml .nodeAffinity.matchExpressions | nindent 16 }}
+      tolerations: {{- toYaml .tolerations | nindent 8 }}
+      priorityClassName: {{ .priorityClassName }}
+      nodeSelector: {{- toYaml .nodeSelector | nindent 8 }}
+      containers:
+      - name: reserve-resources
+        image: k8s.gcr.io/pause
+        resources: {{- toYaml .resources | nindent 10 }}
+{{ end }}

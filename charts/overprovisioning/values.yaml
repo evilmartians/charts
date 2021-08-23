@@ -1,0 +1,29 @@
+---
+placeholders: []
+  # - name: web
+  #   replicas: 2
+  #   labels:
+  #     run: overprovisioning
+  #     type: web
+  #   nodeAffinity:
+  #     weight: 100
+  #     matchExpressions:
+  #       - key: cloud.google.com/gke-preemptible
+  #         operator: In
+  #         values:
+  #         - "true"
+  #   tolerations:
+  #     - key: gke-preemptible
+  #       operator: Equal
+  #       value: "true"
+  #       effect: NoSchedule
+  #   priorityClassName: overprovisioning
+  #   nodeSelector:
+  #     web: "true"
+  #   resources:
+  #     requests:
+  #       cpu: "300m"
+  #       memory: "700Mi"
+  #     limits:
+  #       cpu: "300m"
+  #       memory: "700Mi"
