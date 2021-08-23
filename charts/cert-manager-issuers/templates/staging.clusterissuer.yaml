@@ -1,4 +1,4 @@
-{{ if and (.Values.issuer.enabled) (.Values.issuer.stagingServer.enabled)}}
+{{ if .Values.issuer.stagingServer.enabled }}
 {{ $name := printf "%s-%s" (include "cert-manager-issuers.name" .) "staging" | quote }}
 ---
 apiVersion: {{ .Values.issuer.apiVersion }}
