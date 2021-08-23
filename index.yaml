@@ -323,4 +323,19 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/infrastructure-alerts-0.1.0/infrastructure-alerts-0.1.0.tgz
     version: 0.1.0
-generated: "2021-08-23T15:28:55.406032Z"
+  priority-classes:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-08-23T15:52:14.225208223Z"
+    description: A Helm chart with Priority Classes
+    digest: e1f8bfd2e04dc1a4b6cf9a28f5612db4a1aafb795dc93eeecca91c00bb39230f
+    maintainers:
+    - email: reuuke@evilmartians.com
+      name: Ilya Nemakov
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: priority-classes
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-08-23T15:52:14.225404524Z"
