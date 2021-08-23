@@ -1,0 +1,9 @@
+---
+apiVersion: v2
+name: overprovisioning
+description: A Helm chart for creating deployment(s) for cluster overprovisioning.
+appVersion: "0.1.0"
+version: 0.1.0
+maintainers:
+  - name: Ilya Cherepanov
+    email: deponian@evilmartians.com
