@@ -397,6 +397,20 @@ entries:
   priority-classes:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2021-08-27T11:58:42.207062018Z"
+    description: A Helm chart with Priority Classes
+    digest: a3a8573c844860599889826c4fc1d6ff322905e4e1848ac50b78a3cad31a7e71
+    maintainers:
+    - email: reuuke@evilmartians.com
+      name: Ilya Nemakov
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: priority-classes
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/priority-classes-0.2.0/priority-classes-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2021-08-23T15:52:14.225208223Z"
     description: A Helm chart with Priority Classes
     digest: e1f8bfd2e04dc1a4b6cf9a28f5612db4a1aafb795dc93eeecca91c00bb39230f
@@ -409,4 +423,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2021-08-23T21:28:32.887812989Z"
+generated: "2021-08-27T11:58:42.20912465Z"
