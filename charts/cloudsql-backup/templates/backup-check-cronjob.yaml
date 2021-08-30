@@ -37,7 +37,7 @@ spec:
             - check
             envFrom:
             - secretRef:
-                name: {{ .name }}-restic-credentials
+                name: {{ .resticCredentialsSecretName }}
 {{- if .resources }}
             resources:
 {{ toYaml .resources | indent 14 }}
@@ -50,7 +50,7 @@ spec:
           volumes:
           - name: config-files
             secret:
-              secretName: {{ .name }}-config-files
+              secretName: {{ .configFilesSecretName }}
 {{- if .nodeSelector }}
           nodeSelector:
 {{ toYaml .nodeSelector | indent 12 }}
