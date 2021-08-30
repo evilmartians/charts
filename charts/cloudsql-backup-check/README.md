@@ -39,31 +39,78 @@ databases:
   # name of cloud where instance will be created
   # supported values are: "aws" and "digital-ocean"
   cloud: "aws"
-  # ssh key which will be added to user on created instance (change it!)
+  # user which will be used to ssh on created instance
+  # for Digital Ocean this is "root"
+  # for AWS you should check chosen AMI documentation
+  ssh_user: root
+  # kubernetes secret which contains ssh key which will be added to user on created instance (change it!)
   # this key must be unique across all databases in the same cloud to prevent conficts
   # during addition/deletion key through cloud API
-  ssh:
-    # user which will be used to ssh on created instance
-    # for Digital Ocean this is "root"
-    # for AWS you should check chosen AMI documentation
-    user: root
-    # you can use RSA or ed25519 key for Digital Ocean
-    # for AWS only RSA key is supported
-    public_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICKMe79IL5vMt0FyavQctc1pTdBnzhV4JqcOSzxU0TqB"
-    private_key: |
-      -----BEGIN OPENSSH PRIVATE KEY-----
-      b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-      QyNTUxOQAAACAijHu/SC+bzLdBcmr0HLXNaU3QZ84VeCanDks8VNE6gQAAAIjrMumi6zLp
-      ogAAAAtzc2gtZWQyNTUxOQAAACAijHu/SC+bzLdBcmr0HLXNaU3QZ84VeCanDks8VNE6gQ
-      AAAECPIbREy8DIfG9EF6bmpPa1v13R6RysIm6b+TxRUJk8nSKMe79IL5vMt0FyavQctc1p
-      TdBnzhV4JqcOSzxU0TqBAAAAAAECAwQF
-      -----END OPENSSH PRIVATE KEY-----
-  # these variables will be added as --extra-vars to ansible-playbook
-  ansible_variables:
+  # you can use RSA or ed25519 key for Digital Ocean
+  # for AWS only RSA key is supported
+  # (see details below)
+  sshKeysSecretName: example-ssh-keys
+  # variables from this secret will be added as --extra-vars to ansible-playbook
+  # (see details below)
+  ansibleVariablesSecretName: example-ansible-variables
+
+ansible_backup_check:
+  image:
+    repository: quay.io/evl.ms/ansible-postgresql-backup-check
+    tag: 20210705-alpine
+    pullPolicy: IfNotPresent
+```
+
+```shell
+helm repo add evilmartians https://helm.evilmartians.net
+
+helm install cloudsql-backup-check evilmartians/cloudsql-backup-check -f example-values.yaml
+```
+
+## Secrets
+
+You need to create two secrets: one for ssh keys and the other for ansible variables.
+
+Example of ssh keys secret:
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/ssh-auth
+metadata:
+  name: example-ssh-key
+stringData:
+  ssh-publickey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICKMe79IL5vMt0FyavQctc1pTdBnzhV4JqcOSzxU0TqB"
+  ssh-privatekey: |
+    -----BEGIN OPENSSH PRIVATE KEY-----
+    b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+    QyNTUxOQAAACAijHu/SC+bzLdBcmr0HLXNaU3QZ84VeCanDks8VNE6gQAAAIjrMumi6zLp
+    ogAAAAtzc2gtZWQyNTUxOQAAACAijHu/SC+bzLdBcmr0HLXNaU3QZ84VeCanDks8VNE6gQ
+    AAAECPIbREy8DIfG9EF6bmpPa1v13R6RysIm6b+TxRUJk8nSKMe79IL5vMt0FyavQctc1p
+    TdBnzhV4JqcOSzxU0TqBAAAAAAECAwQF
+    -----END OPENSSH PRIVATE KEY-----
+```
+
+Of course you must change public and private key with your own. This key must be unique across all databases in the same cloud to prevent conflicts during addition/deletion key through cloud API. You can use RSA or ed25519 key for Digital Ocean, but only RSA for AWS.
+
+Example of ansible variables secret:
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: example-ansible-variables
+stringData:
+  variables.yml: |
     # REQUIRED variables:
 
     # general
     database_name: "name"
+    restoration_timeout: "must be the same as timeout from chart values"
+
     # restic credentials
     restic_aws_access_key: ""
     restic_aws_secret_key: ""
@@ -99,19 +146,9 @@ databases:
     snapshot: "latest"
     restic_url: "https://github.com/restic/restic/releases/download/v0.12.0/restic_0.12.0_linux_amd64.bz2"
     restic_hash: "63d13d53834ea8aa4d461f0bfe32a89c70ec47e239b91f029ed10bd88b8f4b80"
-
-ansible_backup_check:
-  image:
-    repository: quay.io/evl.ms/ansible-postgresql-backup-check
-    tag: 20210705-alpine
-    pullPolicy: IfNotPresent
 ```
 
-```shell
-helm repo add evilmartians https://helm.evilmartians.net
-
-helm install cloudsql-backup-check evilmartians/cloudsql-backup-check -f example-values.yaml
-```
+These variables will be added as `--extra-vars` to `ansible-playbook` command.
 
 ## Values
 

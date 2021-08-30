@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.3.0 (30.08.2021)
+- Don't create secrets, just mount them
+
 # 0.2.3 (05.07.2021)
 - Add more verbose output for ansible and update docker base image
 
