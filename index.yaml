@@ -46,6 +46,22 @@ entries:
   cloudsql-backup:
   - apiVersion: v2
     appVersion: 0.12.0
+    created: "2021-08-30T19:16:11.11641251Z"
+    description: A Helm chart for periodical backup of cloud postgresql
+    digest: c3f08c1378f65b73f5b91e5a62f6f438dec3be49a3bdf6c673483f0cb8ee0783
+    maintainers:
+    - email: bregor@evilmartians.com
+      name: Maxim Filatov
+    - email: kir@evilmartians.com
+      name: Kirill Kuznetsov
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: cloudsql-backup
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/cloudsql-backup-0.7.0/cloudsql-backup-0.7.0.tgz
+    version: 0.7.0
+  - apiVersion: v2
+    appVersion: 0.12.0
     created: "2021-08-23T15:28:52.719089Z"
     description: A Helm chart for periodical backup of cloud postgresql
     digest: 1a1e6c6c1c90367c485538977273f9b798f9e23ea27cc8fbab0984beb1afd31c
@@ -435,4 +451,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2021-08-30T13:49:27.339277975Z"
+generated: "2021-08-30T19:16:11.116526112Z"
