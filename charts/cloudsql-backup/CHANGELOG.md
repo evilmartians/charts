@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.7.0 (30.08.2021)
+- Don't create secrets, just mount them
+
 # 0.6.1 (02.03.2021)
 - Update default `pgrestic` tag to `0.12.0-r0-13.2-alpine`
 - Change path to restic in dockerfile from `/usr/local/bin/restic` to `/usr/bin/restic`

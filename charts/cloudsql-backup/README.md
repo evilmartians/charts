@@ -30,20 +30,9 @@ apps:
     requests:
       cpu: 1
       memory: 1Gi
-  resticCredentials:
-    RESTIC_REPOSITORY: s3:fra1.digitaloceanspaces.com/example/example
-    RESTIC_PASSWORD: CHANGEME
-    AWS_ACCESS_KEY_ID: CHANGEME
-    AWS_SECRET_ACCESS_KEY: CHANGEME
-    GOOGLE_PROJECT_ID: CHANGEME
-    GOOGLE_APPLICATION_CREDENTIALS: /config/gs-secret-restic-key.json
-  postgresCredentials:
-    PGDATABASE: example_db
-    PGUSER: example_user
-    PGPASSWORD: example_password
-    PGHOST: pg.example.com
-  configFiles:
-    gs-secret-restic-key.json: <base64-encoded gcloud json file>
+  resticCredentialsSecretName: example-restic-credentials
+  postgresCredentialsSecretName: example-postgres-credentials
+  configFilesSecretName: example-config-files
 
 proxy:
   credentialsJson: ""
@@ -55,6 +44,75 @@ proxy:
 helm repo add evilmartians https://helm.evilmartians.net
 
 helm install cloudsql-backup evilmartians/cloudsql-backup -f example-values.yaml
+```
+
+## Secrets
+
+You must create three secrets:
+- secret with restic credentials
+- secret with postgres credentials
+- secret with config files (for example `gs-secret-restic-key.json` for Google Cloud Storage access)
+
+Also you have to create secret for CloudSQL proxy if you want to use it.
+
+Example of restic credentials secret:
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: example-restic-credentials
+stringData:
+  RESTIC_REPOSITORY: s3:fra1.digitaloceanspaces.com/example/example
+  RESTIC_PASSWORD: CHANGEME
+  AWS_ACCESS_KEY_ID: CHANGEME
+  AWS_SECRET_ACCESS_KEY: CHANGEME
+  GOOGLE_PROJECT_ID: CHANGEME
+  GOOGLE_APPLICATION_CREDENTIALS: /config/gs-secret-restic-key.json
+```
+
+Example of PostgreSQL credentials secret:
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: example-postgres-credentials
+stringData:
+  PGDATABASE: example_db
+  PGUSER: example_user
+  PGPASSWORD: example_password
+  PGHOST: pg.example.com
+```
+
+Example of secret with configs:
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: example-config-files
+data:
+  gs-secret-restic-key.json: <base64-encoded gcloud json file>
+```
+
+Example of CloudSQL proxy secret:
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: example-cloudsql-proxy
+data:
+  credentials.json: <base64-encoded credentials json>
 ```
 
 ## Values

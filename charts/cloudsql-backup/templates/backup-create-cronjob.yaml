@@ -38,9 +38,9 @@ spec:
             - '/usr/local/bin/pg_dump --verbose --format=c | /usr/bin/restic backup --host={{ .name }}-backup --verbose --stdin --stdin-filename="${PGDATABASE}.dump"'
             envFrom:
             - secretRef:
-                name: {{ .name }}-restic-credentials
+                name: {{ .resticCredentialsSecretName }}
             - secretRef:
-                name: {{ .name }}-postgres-credentials
+                name: {{ .postgresCredentialsSecretName }}
 {{- if .resources }}
             resources:
 {{ toYaml .resources | indent 14 }}
@@ -53,7 +53,7 @@ spec:
           volumes:
           - name: config-files
             secret:
-              secretName: {{ .name }}-config-files
+              secretName: {{ .configFilesSecretName }}
           {{- with $.Values.restic.affinity }}
           affinity:
           {{- toYaml . | nindent 12 }}
