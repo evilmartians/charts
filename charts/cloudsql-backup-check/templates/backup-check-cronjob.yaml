@@ -29,7 +29,7 @@ spec:
           - name: ansible
             image: "{{ $.Values.ansible_backup_check.image.repository }}:{{ $.Values.ansible_backup_check.image.tag }}"
             imagePullPolicy: {{ $.Values.ansible_backup_check.image.pullPolicy }}
-            command: ["ansible-playbook", "--extra-vars", "@/config/variables.yml", "--user", "{{ .ssh.user }}", "{{ .cloud }}.yml"]
+            command: ["ansible-playbook", "--extra-vars", "@/config/variables.yml", "--user", "{{ .ssh_user }}", "{{ .cloud }}.yml"]
             env:
             - name: ANSIBLE_STDOUT_CALLBACK
               value: "debug"
@@ -44,10 +44,10 @@ spec:
           volumes:
           - name: variables
             secret:
-              secretName: {{ .name }}-ansible-variables
+              secretName: {{ .ansibleVariablesSecretName }}
           - name: sshkeys
             secret:
-              secretName: {{ .name }}-ssh-key
+              secretName: {{ .sshKeysSecretName }}
               defaultMode: 0600
           {{- with .affinity }}
           affinity: {{- toYaml . | nindent 12 }}
