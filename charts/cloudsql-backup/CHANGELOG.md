@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.7.1 (31.08.2021)
+- make config files secret optional
+
 # 0.7.0 (30.08.2021)
 - Don't create secrets, just mount them
 

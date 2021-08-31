@@ -41,31 +41,32 @@ spec:
                 name: {{ .resticCredentialsSecretName }}
             - secretRef:
                 name: {{ .postgresCredentialsSecretName }}
-{{- if .resources }}
-            resources:
-{{ toYaml .resources | indent 14 }}
-{{- end }}
+            {{- if .resources }}
+            resources: {{- toYaml .resources | nindent 14 }}
+            {{- end }}
+            {{- if .configFilesSecretName }}
             volumeMounts:
             - name: config-files
               mountPath: /config
+            {{- end }}
           dnsPolicy: ClusterFirst
           restartPolicy: OnFailure
+          {{- if .configFilesSecretName }}
           volumes:
           - name: config-files
             secret:
               secretName: {{ .configFilesSecretName }}
+          {{- end }}
           {{- with $.Values.restic.affinity }}
           affinity:
           {{- toYaml . | nindent 12 }}
           {{- end }}
-{{- if .nodeSelector }}
-          nodeSelector:
-{{ toYaml .nodeSelector | indent 12 }}
-{{- end }}
-{{- if .tolerations }}
-          tolerations:
-{{ toYaml .tolerations | indent 12 }}
-{{- end }}
+          {{- if .nodeSelector }}
+          nodeSelector: {{- toYaml .nodeSelector | nindent 12 }}
+          {{- end }}
+          {{- if .tolerations }}
+          tolerations: {{- toYaml .tolerations | indent 12 }}
+          {{- end }}
   schedule: {{ .backupSchedule }}
   successfulJobsHistoryLimit: 3
   suspend: false

@@ -48,12 +48,13 @@ helm install cloudsql-backup evilmartians/cloudsql-backup -f example-values.yaml
 
 ## Secrets
 
-You must create three secrets:
+You must create two secrets:
 - secret with restic credentials
 - secret with postgres credentials
-- secret with config files (for example `gs-secret-restic-key.json` for Google Cloud Storage access)
 
-Also you have to create secret for CloudSQL proxy if you want to use it.
+You can create two optional secrets:
+- secret with config files (for example `gs-secret-restic-key.json` for Google Cloud Storage access)
+- secret for CloudSQL proxy
 
 Example of restic credentials secret:
 
