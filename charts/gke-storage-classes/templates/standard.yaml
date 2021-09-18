@@ -33,7 +33,7 @@ kind: StorageClass
 metadata:
   name: standard-regional
 parameters:
-  type: standard-ssd
+  type: pd-standard
   replication-type: regional-pd
 provisioner: pd.csi.storage.gke.io
 reclaimPolicy: Retain
