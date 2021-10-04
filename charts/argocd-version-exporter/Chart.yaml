@@ -1,0 +1,9 @@
+---
+apiVersion: v2
+appVersion: "1.0.0"
+description: ArgoCD Application versions exporter
+name: argocd-version-exporter
+version: 0.0.1
+maintainers:
+  - name: Ilya Nemakov
+    email: reuuke@evilmartians.com

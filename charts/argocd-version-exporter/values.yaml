@@ -1,0 +1,54 @@
+replicaCount: 1
+
+image:
+  repository: quay.io/evl.ms/argocd-exporter
+  tag: 0.0.1
+  pullPolicy: IfNotPresent
+
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #   - myRegistrKeySecretName
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+  name: http
+  labels: {}
+  annotations: {}
+
+serviceMonitor:
+  # When set true then use a PodMonitor to configure scraping
+  enabled: true
+  # namespace: monitoring
+  # interval: 30s
+  # telemetryPath: /metrics
+  # labels: {}
+  # timeout: 10s
+  # targetLabels: []
+  # metricRelabelings: []
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 256Mi
+  requests:
+    cpu: 25m
+    memory: 128Mi
+
+topologySpreadConstraints: {}
+# - labelSelector:
+#     matchLabels:
+#       app.kubernetes.io/name: argocd-version-exporter
+#   maxSkew: 1
+#   topologyKey: topology.kubernetes.io/zone
+#   whenUnsatisfiable: DoNotSchedule
+# - labelSelector:
+#     matchLabels:
+#       app.kubernetes.io/name: argocd-version-exporter
+#   maxSkew: 1
+#   topologyKey: kubernetes.io/hostname
+#   whenUnsatisfiable: DoNotSchedule
