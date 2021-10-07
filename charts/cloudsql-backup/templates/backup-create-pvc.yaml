@@ -1,0 +1,10 @@
+{{- if .Values.restic.storage.enabled }}
+{{- range .Values.apps }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .name }}-cloudsql-backup-create
+spec:
+  {{toYaml $.Values.restic.storage.spec | nindent 2 }}
+{{- end }}
+{{- end }}
