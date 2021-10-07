@@ -3,7 +3,7 @@ apiVersion: v2
 description: GKE Storage Classes
 appVersion: "1.0.0"
 name: gke-storage-classes
-version: 0.2.0
+version: 0.2.1
 maintainers:
   - name: Ilya Nemakov
     email: reuuke@evilmartians.com

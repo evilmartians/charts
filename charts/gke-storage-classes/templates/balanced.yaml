@@ -1,16 +1,3 @@
-{{ if .Values.legacy }}
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: balanced
-parameters:
-  type: pd-balanced
-provisioner: kubernetes.io/gce-pd
-reclaimPolicy: Retain
-volumeBindingMode: Immediate
-allowVolumeExpansion: true
-{{ end }}
 {{ if .Values.csi }}
 ---
 apiVersion: storage.k8s.io/v1
