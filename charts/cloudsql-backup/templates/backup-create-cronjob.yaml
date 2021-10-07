@@ -35,7 +35,7 @@ spec:
             command:
             - /bin/sh
             - -c
-            {{- if .storage.enabled }}
+            {{- if .storage }}
             - /usr/local/bin/pg_dump --verbose --format=c --compress=1 --file /backup/${PGDATABASE}.dump && /usr/bin/restic backup --host={{ .name }}-backup --verbose /backup/${PGDATABASE}.dump; rm -rf /backup/${PGDATABASE}.dump
             {{- else }}
             - '/usr/local/bin/pg_dump --verbose --format=c --compress=1 | /usr/bin/restic backup --host={{ .name }}-backup --verbose --stdin --stdin-filename="${PGDATABASE}.dump"'
@@ -53,7 +53,7 @@ spec:
             - name: config-files
               mountPath: /config
             {{- end }}
-            {{- if .storage.enabled }}
+            {{- if .storage }}
             - name: storage
               mountPath: "/backup"
             {{- end }}
@@ -65,7 +65,7 @@ spec:
             secret:
               secretName: {{ .configFilesSecretName }}
           {{- end }}
-          {{- if .storage.enabled }}
+          {{- if .storage }}
           - name: storage
             persistentVolumeClaim:
               claimName: {{ .name }}-cloudsql-backup-create
