@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.8.0 (07.10.2021)
+- Add support to use PVC as "buffer" between pg_dump and restic
+
 # 0.7.1 (31.08.2021)
 - make config files secret optional
 

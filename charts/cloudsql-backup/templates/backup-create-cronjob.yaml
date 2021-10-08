@@ -35,7 +35,11 @@ spec:
             command:
             - /bin/sh
             - -c
-            - '/usr/local/bin/pg_dump --verbose --format=c | /usr/bin/restic backup --host={{ .name }}-backup --verbose --stdin --stdin-filename="${PGDATABASE}.dump"'
+            {{- if .storage }}
+            - /usr/local/bin/pg_dump --verbose --format=c --compress=1 --file /backup/${PGDATABASE}.dump && /usr/bin/restic backup --host={{ .name }}-backup --verbose /backup/${PGDATABASE}.dump; rm -rf /backup/${PGDATABASE}.dump
+            {{- else }}
+            - '/usr/local/bin/pg_dump --verbose --format=c --compress=1 | /usr/bin/restic backup --host={{ .name }}-backup --verbose --stdin --stdin-filename="${PGDATABASE}.dump"'
+            {{- end }}
             envFrom:
             - secretRef:
                 name: {{ .resticCredentialsSecretName }}
@@ -44,18 +48,27 @@ spec:
             {{- if .resources }}
             resources: {{- toYaml .resources | nindent 14 }}
             {{- end }}
-            {{- if .configFilesSecretName }}
             volumeMounts:
+            {{- if .configFilesSecretName }}
             - name: config-files
               mountPath: /config
             {{- end }}
+            {{- if .storage }}
+            - name: storage
+              mountPath: "/backup"
+            {{- end }}
           dnsPolicy: ClusterFirst
           restartPolicy: OnFailure
-          {{- if .configFilesSecretName }}
           volumes:
+          {{- if .configFilesSecretName }}
           - name: config-files
             secret:
               secretName: {{ .configFilesSecretName }}
+          {{- end }}
+          {{- if .storage }}
+          - name: storage
+            persistentVolumeClaim:
+              claimName: {{ .name }}-cloudsql-backup-create
           {{- end }}
           {{- with $.Values.restic.affinity }}
           affinity:
