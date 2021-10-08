@@ -23,6 +23,13 @@ apps: []
 #   keep:
 #     last: 5
 #     within: 1m
+#   # Optional
+#   storage:
+#     storageClassName: standard
+#     accessModes: ["ReadWriteOnce"]
+#     resources:
+#       requests:
+#         storage: 500Gi
 #   resticCredentialsSecretName: example-restic-credentials
 #   postgresCredentialsSecretName: example-postgres-credentials
 #   configFilesSecretName: example-config-files
