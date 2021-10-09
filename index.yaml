@@ -59,6 +59,22 @@ entries:
   cloudsql-backup:
   - apiVersion: v2
     appVersion: 0.12.0
+    created: "2021-10-09T19:26:30.979995974Z"
+    description: A Helm chart for periodical backup of cloud postgresql
+    digest: 273e5657baf3cea92ae614ae4a59f292550b41b4fca28a12309198c94ac4e370
+    maintainers:
+    - email: bregor@evilmartians.com
+      name: Maxim Filatov
+    - email: kir@evilmartians.com
+      name: Kirill Kuznetsov
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: cloudsql-backup
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/cloudsql-backup-0.8.1/cloudsql-backup-0.8.1.tgz
+    version: 0.8.1
+  - apiVersion: v2
+    appVersion: 0.12.0
     created: "2021-10-08T09:50:08.418061953Z"
     description: A Helm chart for periodical backup of cloud postgresql
     digest: d09df112ee6fe3b98f5e661a29e3c5d050666a831688e8c5a6cfbe1f71b4c2c4
@@ -420,6 +436,19 @@ entries:
   infrastructure-alerts:
   - apiVersion: v2
     appVersion: 18.0.0
+    created: "2021-10-09T19:26:31.159446775Z"
+    description: A Helm chart with tuned PrometheusRules from kube-prometheus-stack
+      chart
+    digest: 25eeb6293e5a3b8a15707fd1244a6a5ccf21b55d21f3ce3c422cc3a1a530ccf8
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: infrastructure-alerts
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/infrastructure-alerts-0.3.2/infrastructure-alerts-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: 18.0.0
     created: "2021-10-08T14:03:40.890577711Z"
     description: A Helm chart with tuned PrometheusRules from kube-prometheus-stack
       chart
@@ -551,4 +580,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-08T14:03:40.890669412Z"
+generated: "2021-10-09T19:26:31.159614974Z"
