@@ -1,5 +1,9 @@
 # UNRELEASED
 
+# 0.8.1 (00.10.2021)
+- Add support to specify pg_dump compress level
+- Update default image to 0.12.1-r0-13.4-alpine
+
 # 0.8.0 (07.10.2021)
 - Add support to use PVC as "buffer" between pg_dump and restic
 

@@ -57,5 +57,5 @@ restic:
   affinity: {}
   image:
     repository: quay.io/evl.ms/pgrestic
-    tag: 0.12.0-r0-13.2-alpine
+    tag: 0.12.1-r0-13.4-alpine
     pullPolicy: IfNotPresent

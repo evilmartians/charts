@@ -1,4 +1,4 @@
-FROM postgres:13.2-alpine
+FROM postgres:13.4-alpine
 
 RUN apk -U --no-cache upgrade && apk add --no-cache ca-certificates
 

@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.3.2 (09.10.2021)
+- Fix Changelog.
+
 # 0.3.1 (08.10.2021)
 - Add 'OOMKilled'
 - Fix 'KubePodCrashLooping' expression

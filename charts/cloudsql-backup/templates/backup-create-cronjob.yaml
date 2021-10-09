@@ -36,9 +36,9 @@ spec:
             - /bin/sh
             - -c
             {{- if .storage }}
-            - /usr/local/bin/pg_dump --verbose --format=c --compress=1 --file /backup/${PGDATABASE}.dump && /usr/bin/restic backup --host={{ .name }}-backup --verbose /backup/${PGDATABASE}.dump; rm -rf /backup/${PGDATABASE}.dump
+            - /usr/local/bin/pg_dump --verbose --format=c --compress={{ .compressLevel | default 6 }} --file /backup/${PGDATABASE}.dump && /usr/bin/restic backup --host={{ .name }}-backup --verbose /backup/${PGDATABASE}.dump; rm -rf /backup/${PGDATABASE}.dump
             {{- else }}
-            - '/usr/local/bin/pg_dump --verbose --format=c --compress=1 | /usr/bin/restic backup --host={{ .name }}-backup --verbose --stdin --stdin-filename="${PGDATABASE}.dump"'
+            - '/usr/local/bin/pg_dump --verbose --format=c --compress={{ .compressLevel | default 6 }} | /usr/bin/restic backup --host={{ .name }}-backup --verbose --stdin --stdin-filename="${PGDATABASE}.dump"'
             {{- end }}
             envFrom:
             - secretRef:
