@@ -3,7 +3,7 @@
   shell:
     cmd: |
       set -o pipefail
-      restic dump --quiet {{ snapshot }} /{{ database_name }}.dump | pg_restore --verbose --clean --create --exit-on-error --if-exists --no-privileges --no-owner --dbname postgres
+      restic dump --quiet {{ snapshot }} {{ database_path | default("/") }}{{ database_name }}.dump | pg_restore --verbose --clean --create --exit-on-error --if-exists --no-privileges --no-owner --dbname postgres
     executable: /bin/bash
   become_user: postgres
   environment:

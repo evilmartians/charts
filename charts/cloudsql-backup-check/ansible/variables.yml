@@ -1,6 +1,7 @@
 ---
 # general
 database_name: "name"
+database_path: "/"
 
 # restic credentials
 restic_aws_access_key: ""
