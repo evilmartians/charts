@@ -306,6 +306,18 @@ entries:
   cloudsql-backup-check:
   - apiVersion: v2
     appVersion: 2.10.5
+    created: "2021-10-13T11:59:15.098777634Z"
+    description: A Helm chart for checking PostgreSQL backup integrity
+    digest: 2c5f7e9041447959d64140cc6239e79686a59992734960eeb127e8b0e28bf874
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: cloudsql-backup-check
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/cloudsql-backup-check-0.3.1/cloudsql-backup-check-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: 2.10.5
     created: "2021-08-30T13:49:27.339190275Z"
     description: A Helm chart for checking PostgreSQL backup integrity
     digest: 4e19e53389e90d3b92bcf4670cfd15779aeee25f4d3ba789316aa74607a34d50
@@ -580,4 +592,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-09T19:26:31.159614974Z"
+generated: "2021-10-13T11:59:15.098905235Z"
