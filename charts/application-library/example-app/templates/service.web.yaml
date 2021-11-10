@@ -1,0 +1,16 @@
+{{- $currentType := set . "currentType" "web" -}}
+apiVersion: v1
+kind: Service
+metadata: {{ include "app.metadata" . | nindent 2 }}
+spec:
+  selector: {{ include "app.templateSelector" . | nindent 4 }}
+  type: {{ .Values.components.web.service.type }}
+  ports:
+    - port: {{ .Values.components.web.service.port }}
+      targetPort: {{ .Values.components.web.service.port }}
+      protocol: TCP
+      name: http
+    - port: {{ .Values.components.web.metrics.port }}
+      targetPort: {{ .Values.components.web.metrics.port }}
+      protocol: TCP
+      name: metrics

@@ -1,0 +1,38 @@
+{{- if .Values.components.web.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "app.name" . }}
+  annotations:
+    {{- if .Values.components.web.ingress.letsEncrypt }}
+    kubernetes.io/tls-acme: "true"
+    {{- end }}
+    {{- range $key, $value := .Values.components.web.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  {{- if and .Values.components.web.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.components.web.ingress.className }}
+  {{- end }}
+  tls:
+    - hosts: {{ .Values.components.web.hostnames | toYaml | nindent 8 }}
+      {{- if .Values.components.web.ingress.letsEncrypt }}
+      secretName: {{ include "app.letsEncryptSecret" . }}
+      {{- else }}
+      secretName: {{ include "app.tlsSecret" . }}
+      {{- end }}
+  rules:
+    {{- $externalPort := .Values.components.web.service.port }}
+    {{- range $domainName := .Values.components.web.hostnames }}
+    - host: {{ $domainName | quote }}
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: web
+                port:
+                  number: {{ $externalPort }}
+            pathType: ImplementationSpecific
+    {{- end }}
+{{- end }}

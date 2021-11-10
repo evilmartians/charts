@@ -1,0 +1,10 @@
+apiVersion: v2
+appVersion: "1.0"
+name: kuvaq
+description: A Helm chart for a small village south of Buusa-Westvoq
+type: application
+version: 0.1.0
+dependencies:
+- name: application-library
+  version: "0.2.0"
+  repository: "https://helm.evilmartians.net"

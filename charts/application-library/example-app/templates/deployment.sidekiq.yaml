@@ -1,0 +1,41 @@
+{{- $currentType := set . "currentType" "sidekiq" -}}
+{{- $replicasCount := set . "replicasCount" .Values.components.sidekiq.replicas -}}
+{{- $strategy := set . "strategy" .Values.components.sidekiq.strategy -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata: {{ include "app.metadata" . | nindent 2 }}
+spec: {{ include "app.multipleRevision" . | nindent 2 }}
+  selector:
+    matchLabels: {{ include "app.templateSelector" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{ include "app.templateLabels" . | nindent 8 }}
+    spec:
+      {{- if .Values.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ include "app.pullSecret" . }}
+      {{- end }}
+      containers:
+      - name: {{ include "app.resourceName" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: ["bundle", "exec", "sidekiq"]
+        ports:
+        - containerPort: {{ .Values.components.sidekiq.metrics.port }}
+          name: metrics
+        envFrom:
+        - secretRef:
+            name: {{ include "app.appSecret" . }}
+        env: {{ include "app.env" . | nindent 8 }}
+        - name: PROMETHEUS_EXPORTER_PORT
+          value: {{ .Values.components.sidekiq.metrics.port | quote }}
+        resources: {{ .Values.components.sidekiq.resources | toYaml | nindent 10 }}
+      {{- if .Values.components.sidekiq.nodeSelector }}
+      nodeSelector: {{ .Values.components.sidekiq.nodeSelector | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.components.sidekiq.affinity }}
+      affinity: {{ .Values.components.sidekiq.affinity | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.components.sidekiq.tolerations }}
+      tolerations: {{ .Values.components.sidekiq.tolerations | toYaml | nindent 8 }}
+      {{- end }}

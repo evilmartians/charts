@@ -1,0 +1,16 @@
+{{- $currentType := set . "currentType" "sidekiq" -}}
+apiVersion: v1
+kind: Service
+metadata: {{ include "app.metadata" . | nindent 2 }}
+spec:
+  selector: {{ include "app.templateSelector" . | nindent 4 }}
+  type: {{ .Values.components.sidekiq.service.type }}
+  ports:
+    - port: {{ .Values.components.sidekiq.service.port }}
+      targetPort: {{ .Values.components.sidekiq.service.port }}
+      protocol: TCP
+      name: http
+    - port: {{ .Values.components.sidekiq.metrics.port }}
+      targetPort: {{ .Values.components.sidekiq.metrics.port }}
+      protocol: TCP
+      name: metrics
