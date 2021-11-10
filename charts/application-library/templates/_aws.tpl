@@ -1,6 +1,5 @@
-{{/* Template to generate affinity settings */}}
-{{/* The `.currentType` stands for the type of the current pod */}}
-{{- define "app.aws.nodeAffinity" -}}
+{{/* Template to generate affinity for spot instances */}}
+{{- define "app.aws.nodeAffinity.spot" -}}
 nodeAffinity:
   preferredDuringSchedulingIgnoredDuringExecution:
   - weight: 100
@@ -12,8 +11,8 @@ nodeAffinity:
         - spot
 {{- end }}
 
-{{/* Template to generate tolerations settings */}}
-{{- define "app.aws.tolerations" -}}
+{{/* Template to generate tolerations for spot instances */}}
+{{- define "app.aws.tolerations.spot" -}}
 - key: lifecycle
   operator: Equal
   value: "spot"

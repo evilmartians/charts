@@ -1,0 +1,56 @@
+{{- $currentType := set . "currentType" "web" -}}
+{{- $replicasCount := set . "replicasCount" .Values.components.web.replicas -}}
+{{- $strategy := set . "strategy" .Values.components.web.strategy -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata: {{ include "app.metadata" . | nindent 2 }}
+spec: {{ include "app.multipleRevision" . | nindent 2 }}
+  selector:
+    matchLabels: {{ include "app.templateSelector" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{ include "app.templateLabels" . | nindent 8 }}
+    spec:
+      {{- if .Values.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ include "app.pullSecret" . }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/app/bin/rails", "server", "-b", "0.0.0.0", "-p", "{{ .Values.components.web.service.port }}"]
+          ports:
+            - containerPort: {{ .Values.components.web.service.port }}
+              name: http
+            - containerPort: {{ .Values.components.web.metrics.port }}
+              name: metrics
+          env: {{ include "app.env" . | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.components.web.livenessProbe }}
+              port: {{ .Values.components.web.livenessProbePort }}
+            initialDelaySeconds: 90
+            timeoutSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.components.web.readinessProbe }}
+              port: {{ .Values.components.web.service.port }}
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 5
+            periodSeconds: 10
+          resources: {{ .Values.components.web.resources | toYaml | nindent 12 }}
+      {{- if .Values.components.web.nodeSelector }}
+      nodeSelector: {{ .Values.components.web.nodeSelector | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.components.web.affinity }}
+      affinity: {{ .Values.components.web.affinity | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.components.web.tolerations }}
+      tolerations: {{ .Values.components.web.tolerations | toYaml | nindent 8 }}
+      {{- end }}

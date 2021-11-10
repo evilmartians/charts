@@ -105,8 +105,8 @@ podAntiAffinity:
 {{/* Template to generate payload for Slack notification */}}
 {{- define "app.release.slack.payload" -}}
 {{- if .Values.components.maintenance.enabled -}}
-{{- printf "{\"attachments\": [{\"text\": \"Bad news, everyone! @%s released *%s* v%d *in maintenance mode* :construction:\", \"color\": \"warning\", \"mrkdwn_in\": [\"text\"]}], \"username\": \"Professor Helmsworth\", \"icon_emoji\": \":goodnews:\"}" .Values.deployment.release.username .Release.Name .Release.Revision -}}
+{{- printf "{\"attachments\": [{\"text\": \"Bad news, everyone! @%s released *%s* v%d *in maintenance mode* :construction:\", \"color\": \"warning\", \"mrkdwn_in\": [\"text\"]}], \"username\": \"Deployman\", \"icon_emoji\": \":goodnews:\"}" .Values.deployment.release.username .Release.Name .Release.Revision -}}
 {{- else }}
-{{- printf "{\"attachments\": [{\"text\": \"Good news, everyone! @%s released *%s* v%d\", \"color\": \"good\", \"mrkdwn_in\": [\"text\"]}], \"username\": \"Professor Helmsworth\", \"icon_emoji\": \":goodnews:\"}" .Values.deployment.release.username .Release.Name .Release.Revision -}}
+{{- printf "{\"attachments\": [{\"text\": \"Good news, everyone! @%s released *%s* v%d\", \"color\": \"good\", \"mrkdwn_in\": [\"text\"]}], \"username\": \"Deployman\", \"icon_emoji\": \":goodnews:\"}" .Values.deployment.release.username .Release.Name .Release.Revision -}}
 {{- end -}}
 {{- end -}}
