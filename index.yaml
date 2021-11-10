@@ -3,6 +3,16 @@ entries:
   application-library:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2021-11-10T13:27:41.000880504Z"
+    description: Library chart for general application templates
+    digest: 2b0e9244310435cb94f6da829d2ba12d10571be8a54286ab8487d530368ec132
+    name: application-library
+    type: library
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/application-library-0.2.0/application-library-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2021-11-08T15:55:56.024768506Z"
     description: Library chart for general application templates
     digest: 67fe16bc65a7a3ffc5261a8f209b4ed06470edf4972dafd850fe883d15481357
@@ -603,4 +613,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-08T15:55:56.02522961Z"
+generated: "2021-11-10T13:27:41.000997214Z"
