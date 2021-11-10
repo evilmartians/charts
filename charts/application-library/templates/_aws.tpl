@@ -1,14 +1,13 @@
 {{/* Template to generate affinity for spot instances */}}
 {{- define "app.aws.nodeAffinity.spot" -}}
-nodeAffinity:
-  preferredDuringSchedulingIgnoredDuringExecution:
-  - weight: 100
-    preference:
-      matchExpressions:
-      - key: lifecycle
-        operator: In
-        values:
-        - spot
+preferredDuringSchedulingIgnoredDuringExecution:
+- weight: 100
+  preference:
+    matchExpressions:
+    - key: lifecycle
+      operator: In
+      values:
+      - spot
 {{- end }}
 
 {{/* Template to generate tolerations for spot instances */}}

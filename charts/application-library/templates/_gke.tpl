@@ -1,12 +1,11 @@
 {{/* Template to generate affinity for preemptible instances */}}
 {{- define "app.gke.nodeAffinity.preemptible" -}}
-nodeAffinity:
-  preferredDuringSchedulingIgnoredDuringExecution:
-  - weight: 100
-    preference:
-      matchExpressions:
-      - key: cloud.google.com/gke-preemptible
-        operator: Exists
+preferredDuringSchedulingIgnoredDuringExecution:
+- weight: 100
+  preference:
+    matchExpressions:
+    - key: cloud.google.com/gke-preemptible
+      operator: Exists
 {{- end }}
 
 {{/* Template to generate tolerations for preemptible instances */}}
