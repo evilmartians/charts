@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "app.fullname" . }}
+  labels:
+    {{- include "app.templateLabels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "app.templateSelector" . | nindent 6 }}
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    {{- toYaml .Values.strategy | nindent 4 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- if .Values.exporter.enabled }}
+        prometheus.io/path: /metrics
+        prometheus.io/port: {{ .Values.exporter.listen_port | quote }}
+        prometheus.io/scrape: "true"
+        {{- end }}
+      labels:
+        {{- include "app.templateLabels" . | nindent 8 }}
+    spec:
+    {{- if or .Values.podAntiAffinity.enabled .Values.affinity }}
+      affinity:
+      {{- if .Values.podAntiAffinity.enabled }}
+        {{- include "app.podAntiAffinity" . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.affinity }}
+        {{- toYaml .Values.affinity | nindent 8 }}
+      {{- end }}
+      {{- end }}
+    {{- if .Values.tolerations }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 6 }}
+    {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ template "app.fullname" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.pgbouncer.listen_port }}
+          command:
+            - /usr/bin/pgbouncer
+          args:
+            - -upgbouncer
+            - /etc/pgbouncer/pgbouncer.ini
+          volumeMounts:
+            - name: config
+              mountPath: /etc/pgbouncer
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.pgbouncer.listen_port }}
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.pgbouncer.listen_port }}
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        {{- if .Values.exporter.enabled }}
+        - name: {{ .Chart.Name }}-exporter
+          image: "{{ .Values.exporter.image.repository }}:{{ .Values.exporter.image.tag }}"
+          imagePullPolicy: {{ .Values.exporter.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.exporter.listen_port }}
+          command:
+            - /pgbouncer_exporter
+          args:
+            - --pgBouncer.connectionString=postgres://pgbouncer:pgbouncer@127.0.0.1:{{ .Values.pgbouncer.listen_port }}/pgbouncer?sslmode=disable
+            - --web.listen-address={{ .Values.exporter.listen_address }}:{{ .Values.exporter.listen_port }}
+          livenessProbe:
+            httpGet:
+              port: {{ .Values.exporter.listen_port }}
+              path: /metrics
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              port: {{ .Values.exporter.listen_port }}
+              path: /metrics
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.exporter.resources | nindent 12 }}
+        {{ end }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+        {{ toYaml .Values.nodeSelector | nindent 8 }}
+    {{- end }}
+    {{- if .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+      {{ toYaml .Values.topologySpreadConstraints | nindent 8 }}
+    {{- end }}

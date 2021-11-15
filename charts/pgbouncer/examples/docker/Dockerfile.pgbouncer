@@ -1,0 +1,14 @@
+FROM alpine:3.14.3
+
+ARG PGBOUNCER_VERSION=1.16.1-r0
+
+RUN apk -U --no-cache upgrade && \
+    apk -v --no-cache add --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community pgbouncer=${PGBOUNCER_VERSION}
+
+RUN adduser -s /sbin/nologin -D pgbouncer
+
+USER pgbouncer
+
+ENTRYPOINT ["/usr/bin/pgbouncer"]
+
+EXPOSE 5432

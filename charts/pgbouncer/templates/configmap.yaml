@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "app.fullname" . }}
+  labels:
+    {{- include "app.templateLabels" . | nindent 6 }}
+data:
+  pgbouncer.ini: |
+    [databases]
+    {{ range $name, $hash := .Values.databases -}}
+    {{- $name   }} = {{ range $key, $value := $hash }}
+    {{- $key }}={{ $value }}{{ " " }}
+    {{- end }}
+    {{ end -}}
+
+    [pgbouncer]
+    {{- range $key, $value := .Values.pgbouncer }}
+    {{ $key }} = {{ $value }}
+    {{- end }}
+
+  {{- if .Values.users }}
+  users.txt: |
+    {{ range $user := .Values.users }}
+    {{- $user.name | quote }} {{ $user.password | quote }}
+    {{ end }}
+  {{ end }}
