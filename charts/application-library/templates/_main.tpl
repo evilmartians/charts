@@ -1,6 +1,22 @@
 {{/* Expand the name of the application. */}}
 {{- define "app.name" -}}
-{{ .Chart.Name | replace "." "-" }}
+{{- default .Chart.Name .Values.nameOverride | replace "." "-" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/* Create a default fully qualified app name. */}}
+{{/* We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec). */}}
+{{/*  If release name contains chart name it will be used as a full name. */}}
+{{- define "app.fullname" -}}
+{{- if .Values.fullnameOverride -}}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- $name := default .Chart.Name .Values.nameOverride -}}
+{{- if contains $name .Release.Name -}}
+{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
 {{- end -}}
 
 {{/* Expand the name of the chart. */}}
@@ -37,17 +53,24 @@
 {{/* Template for spec selectors */}}
 {{/* the `.currentType` stands for the type of current pod */}}
 {{- define "app.templateSelector" -}}
-app: {{ include "app.name" . }}
-component: {{ .currentType }}
+app.kubernetes.io/name: {{ template "app.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- if .currentType }}
+app.kubernetes.io/component: {{ .currentType }}
+{{- end }}
 {{- end }}
 
 {{/* Labels for metadata of deployments */}}
 {{/* the `.currentType` stands for the type of current pod */}}
 {{- define "app.templateLabels" -}}
-app: {{ include "app.name" . }}
-component: {{ .currentType }}
-chart: {{ include "app.chart" . }}
-revision: v{{ .Release.Revision }}
+app.kubernetes.io/name: {{ template "app.name" . }}
+helm.sh/chart: {{ template "app.chart" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/revision: v{{ .Release.Revision }}
+{{- if .currentType }}
+app.kubernetes.io/component: {{ .currentType }}
+{{- end }}
 {{- end }}
 
 {{/* Template metadata for deployments and services */}}
@@ -91,15 +114,21 @@ podAntiAffinity:
       podAffinityTerm:
         labelSelector:
           matchExpressions:
-            - key: app
+            - key: app.kubernetes.io/name
               operator: In
               values:
                 - {{ include "app.name" . }}
-            - key: component
+            - key: app.kubernetes.io/instance
+              operator: In
+              values:
+              - {{ .Release.Name }}
+            {{- if .currentType }}
+            - key: app.kubernetes.io/component
               operator: In
               values:
                 - {{ .currentType }}
-        topologyKey: "kubernetes.io/hostname"
+            {{ end }}
+        topologyKey: {{ .topologyKey | default "kubernetes.io/hostname" }}
 {{- end }}
 
 {{/* Template to generate payload for Slack notification */}}
