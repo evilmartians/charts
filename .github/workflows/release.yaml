@@ -23,7 +23,11 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v1
         with:
-          version: v3.6.3
+          version: v3.7.1
+
+      - name: Add repo https://helm.evilmartians.net
+        run: |
+          helm repo add evilmartians https://helm.evilmartians.net
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.2.1

@@ -14,10 +14,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Helm
+      - name: Install Helm
         uses: azure/setup-helm@v1
         with:
-          version: v3.6.3
+          version: v3.7.1
+
+      - name: Add repo https://helm.evilmartians.net
+        run: |
+          helm repo add evilmartians https://helm.evilmartians.net
 
       # Python is required because `ct lint` runs Yamale (https://github.com/23andMe/Yamale) and
       # yamllint (https://github.com/adrienverge/yamllint) which require Python
