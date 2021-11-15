@@ -1,0 +1,23 @@
+{{- if .Values.exporter.serviceMonitor.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "app.fullname" . }}
+  labels:
+    {{- include "app.templateLabels" . | nindent 4 }}
+    {{ toYaml .Values.exporter.serviceMonitor.labels | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "app.templateSelector" . | nindent 6 }}
+  endpoints:
+    - honorLabels: true
+      port: metrics
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace | quote }}
+  targetLabels:
+    - app
+    - release
+{{- end }}
