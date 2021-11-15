@@ -604,6 +604,31 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/overprovisioning-0.1.0/overprovisioning-0.1.0.tgz
     version: 0.1.0
+  pgbouncer:
+  - apiVersion: v2
+    appVersion: 1.16.1
+    created: "2021-11-15T14:43:22.566052925Z"
+    dependencies:
+    - name: application-library
+      repository: https://helm.evilmartians.net
+      version: 0.3.*
+    description: Lightweight connection pooler for PostgreSQL
+    digest: 382b951ba34dc7491ef4a6c207495ed3ffbff7f705877af28eedcf08b395975b
+    home: https://pgbouncer.github.io/
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    - email: ilya.nemakov@evilmartians.com
+      name: Ilya Nemakov
+    - email: agon.smith@gmail.com
+      name: Kir Kuznetsov
+    name: pgbouncer
+    sources:
+    - https://github.com/pgbouncer/pgbouncer
+    - https://github.com/larseen/pgbouncer_exporter
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/pgbouncer-0.1.0/pgbouncer-0.1.0.tgz
+    version: 0.1.0
   priority-classes:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -633,4 +658,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-15T13:49:34.791521543Z"
+generated: "2021-11-15T14:43:22.566184826Z"
