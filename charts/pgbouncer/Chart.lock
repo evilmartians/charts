@@ -1,6 +1,6 @@
 dependencies:
-- name: application-library
-  repository: https://helm.evilmartians.net
-  version: 0.3.0
-digest: sha256:a22c37b1aa1581c2dcde1670fe44d193a535a80d8002b1cc76fe919719dbd7a0
-generated: "2021-11-15T16:50:20.207288+03:00"
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.10.3
+digest: sha256:ecdb6b72c2d583cc25fd6f1cc1a16e1f6d4f5b292abd43892e470fddcaf84966
+generated: "2021-12-08T10:55:32.999061+03:00"

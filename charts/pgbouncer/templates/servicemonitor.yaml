@@ -3,14 +3,14 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ template "app.fullname" . }}
+  name: {{ template "common.names.fullname" . }}
   labels:
-    {{- include "app.templateLabels" . | nindent 4 }}
+    {{- include "common.labels.standard" . | nindent 4 }}
     {{ toYaml .Values.exporter.serviceMonitor.labels | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "app.templateSelector" . | nindent 6 }}
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
   endpoints:
     - honorLabels: true
       port: metrics

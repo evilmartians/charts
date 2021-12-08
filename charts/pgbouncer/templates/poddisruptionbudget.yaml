@@ -2,9 +2,9 @@
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ template "app.fullname" . }}
+  name: {{ template "common.names.fullname" . }}
   labels:
-    {{- include "app.templateLabels" . | nindent 6 }}
+    {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   {{- if .Values.podDisruptionBudget.minAvailable }}
   minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
@@ -14,6 +14,5 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      app: {{ template "app.name" . }}
-      release: {{ .Release.Name }}
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
 {{- end }}

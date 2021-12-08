@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "app.fullname" . }}
+  name: {{ template "common.names.fullname" . }}
   labels:
-    {{- include "app.templateLabels" . | nindent 6 }}
+    {{- include "common.labels.standard" . | nindent 4 }}
 data:
   pgbouncer.ini: |
     [databases]
