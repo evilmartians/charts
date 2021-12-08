@@ -620,6 +620,32 @@ entries:
   pgbouncer:
   - apiVersion: v2
     appVersion: 1.16.1
+    created: "2021-12-08T08:12:53.074005502Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.10.x
+    description: Lightweight connection pooler for PostgreSQL
+    digest: cbd8f99f00f7b59246010c90a6ddcffbfa4e9ef58902c2c43d2bc76b7bd7032d
+    home: https://pgbouncer.github.io/
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    - email: ilya.nemakov@evilmartians.com
+      name: Ilya Nemakov
+    - email: agon.smith@gmail.com
+      name: Kir Kuznetsov
+    name: pgbouncer
+    sources:
+    - https://github.com/pgbouncer/pgbouncer
+    - https://github.com/larseen/pgbouncer_exporter
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/pgbouncer-0.2.0/pgbouncer-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.1
     created: "2021-11-15T14:43:22.566052925Z"
     dependencies:
     - name: application-library
@@ -671,4 +697,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-17T19:34:13.521734162Z"
+generated: "2021-12-08T08:12:53.074147903Z"
