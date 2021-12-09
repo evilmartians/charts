@@ -20,21 +20,6 @@ spec:
   groups:
   - name: kubernetes-apps
     rules:
-    {{- if not (has "KubePodCrashLooping" .Values.ruleGroups.kubernetesApps.disabledRules)}}
-    - alert: KubePodCrashLooping
-      annotations:
-        message: Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} ({{`{{`}} $labels.container {{`}}`}}) is restarting {{`{{`}} printf "%.2f" $value {{`}}`}} times / 10 minutes.
-        runbook_url: {{ .Values.runbookUrl }}alert-name-kubepodcrashlooping
-        summary: Pod is crash looping.
-      expr: |-
-        increase(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}[10m]) > 0
-      for: 15m
-      labels:
-        severity: warning
-        {{- if .Values.additionalRuleLabels }}
-        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
-        {{- end }}
-    {{- end }}
     {{- if not (has "KubePodNotReady" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubePodNotReady
       annotations:
@@ -340,8 +325,74 @@ spec:
       annotations:
         message: "Container ({{`{{`}} $labels.container {{`}}`}}) OOMKilled ({{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}})"
         summary: Container was OOMKilled.
-      expr: 'sum by (pod, container, reason, namespace) (kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}) * on (pod,container) group_left sum by (pod, container) (changes(kube_pod_container_status_restarts_total{}[1m])) > 0'
+      expr: |-
+        sum by (pod, container, reason, namespace) (kube_pod_container_status_last_terminated_reason{reason="OOMKilled", namespace=~"{{ $targetNamespace }}"}) 
+          * on (pod,container) 
+        group_left sum by (pod, container) (changes(kube_pod_container_status_restarts_total{}[1m])) > 0
       for: 0s
+      labels:
+        severity: warning
+        {{- if .Values.additionalRuleLabels }}
+        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
+        {{- end }}
+    {{- end }}
+    {{- if not (has "KubePodCrashLooping" .Values.ruleGroups.kubernetesApps.disabledRules)}}
+    - alert: KubePodCrashLooping
+      annotations:
+        message: 'Pod: {{`{{`}} $labels.pod {{`}}`}}, namespace: {{`{{`}} $labels.namespace {{`}}`}}, container:  {{`{{`}} $labels.container {{`}}`}} restarted {{`{{`}} $value {{`}}`}} times in the last 5 minutes.'
+        runbook_url: {{ .Values.runbookUrl }}alert-name-kubepodcrashlooping
+        summary: Pod is crash looping.
+      expr: round(increase(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}[5m])) > 1
+      for: 0s
+      labels:
+        severity: warning
+        {{- if .Values.additionalRuleLabels }}
+        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
+        {{- end }}
+    {{- end }}
+    {{- if not (has "KubePodCrashLoopingLong" .Values.ruleGroups.kubernetesApps.disabledRules)}}
+    - alert: KubePodCrashLoopingLong
+      annotations:
+        message: 'Pod: {{`{{`}} $labels.pod {{`}}`}}, namespace: {{`{{`}} $labels.namespace {{`}}`}}, container:  {{`{{`}} $labels.container {{`}}`}} restarted {{`{{`}} $value {{`}}`}} times in the last hour (at least once every 15 minutes).'
+        runbook_url: {{ .Values.runbookUrl }}alert-name-kubepodcrashlooping
+        summary: Pod is crash looping.
+      expr: |-
+        round(increase(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}[60m])) > 0 
+          and 
+        round(increase(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}[15m])) > 0
+      for: 60m
+      labels:
+        severity: warning
+        {{- if .Values.additionalRuleLabels }}
+        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
+        {{- end }}
+    {{- end }}
+    {{- if not (has "PodMemoryUsageLimit" .Values.ruleGroups.kubernetesApps.disabledRules)}}
+    - alert: PodMemoryUsageLimit
+      annotations:
+        message: 'Pod: {{`{{`}} $labels.pod {{`}}`}}, namespace: {{`{{`}} $labels.namespace {{`}}`}} memory usage {{`{{`}} printf "%.2f" $value {{`}}`}}% more than 85% of its limit for 1h'
+        summary: Pod uses more than 85% of its memory limit.
+      expr: |-
+        sum(label_replace(container_memory_working_set_bytes{container!="", namespace=~"{{ $targetNamespace }}"}, "pod", "$1", "pod", "(.*)")) by (pod, namespace) 
+          /
+        sum(kube_pod_container_resource_limits{resource="memory", namespace=~"{{ $targetNamespace }}"}) by (pod,namespace) * 100 > 85
+      for: 60m
+      labels:
+        severity: warning
+        {{- if .Values.additionalRuleLabels }}
+        {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
+        {{- end }}
+    {{- end }}
+    {{- if not (has "PodMemoryUsageLimit" .Values.ruleGroups.kubernetesApps.disabledRules)}}
+    - alert: PodMemoryUsageLimit
+      annotations:
+        message: 'Pod: {{`{{`}} $labels.pod {{`}}`}}, namespace: {{`{{`}} $labels.namespace {{`}}`}} memory usage {{`{{`}} printf "%.2f" $value {{`}}`}}% more than 95% of its limit for 5m'
+        summary: Pod uses more than 95% of its memory limit.
+      expr: |-
+        sum(label_replace(container_memory_working_set_bytes{container!="", namespace=~"{{ $targetNamespace }}"}, "pod", "$1", "pod", "(.*)")) by (pod, namespace)
+          /
+        sum(kube_pod_container_resource_limits{resource="memory", namespace=~"{{ $targetNamespace }}"}) by (pod,namespace) * 100 > 95
+      for: 5m
       labels:
         severity: warning
         {{- if .Values.additionalRuleLabels }}
