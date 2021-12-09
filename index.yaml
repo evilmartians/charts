@@ -489,6 +489,19 @@ entries:
   infrastructure-alerts:
   - apiVersion: v2
     appVersion: 18.0.0
+    created: "2021-12-09T13:07:30.231992131Z"
+    description: A Helm chart with tuned PrometheusRules from kube-prometheus-stack
+      chart
+    digest: 1459113a5831ad1ea718c6f013f283a6f1fdde4b4abf1ca44beb8d942915d3fb
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: infrastructure-alerts
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/infrastructure-alerts-0.3.4/infrastructure-alerts-0.3.4.tgz
+    version: 0.3.4
+  - apiVersion: v2
+    appVersion: 18.0.0
     created: "2021-11-17T19:34:13.521361642Z"
     description: A Helm chart with tuned PrometheusRules from kube-prometheus-stack
       chart
@@ -697,4 +710,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-08T08:12:53.074147903Z"
+generated: "2021-12-09T13:07:30.23219423Z"
