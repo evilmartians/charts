@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.3.4 (09.12.2021)
+- Add KubePodCrashLooping and PodMemoryUsageLimit alerts
+
 # 0.3.3 (17.11.2021)
 - Let loose NodeFilesystemSpaceFillingUp alert
 
