@@ -1,5 +1,8 @@
 # UNRELEASED
 
+# 0.4.0 (25.02.2022)
+- Synchronize rules with kube-prometheus-stack version 33.0.0
+
 # 0.3.4 (09.12.2021)
 - Add KubePodCrashLooping and PodMemoryUsageLimit alerts
 

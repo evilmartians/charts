@@ -71,6 +71,8 @@ defaultRules:
     kubelet: true
     kubePrometheusGeneral: true
     kubePrometheusNodeRecording: true
+    node: true
+    nodeExporterRecording: true
 
     # these rule groups can be disabled in kube-prometheus-stack chart
     # and replaced by rules from this chart
@@ -85,7 +87,7 @@ defaultRules:
     kubeScheduler: false
     kubeStateMetrics: false
     network: false
-    node: false
+	nodeExporterAlerting: false
     prometheus: false
     prometheusOperator: false
 

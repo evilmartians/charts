@@ -76,7 +76,7 @@ ruleGroups:
     enabled: true
     disabledRules: []
 
-  node:
+  nodeExporterAlerting:
     enabled: true
     disabledRules: []
 

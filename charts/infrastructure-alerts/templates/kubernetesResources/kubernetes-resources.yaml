@@ -22,16 +22,14 @@ spec:
     {{- if not (has "KubeCPUOvercommit" .Values.ruleGroups.kubernetesResources.disabledRules)}}
     - alert: KubeCPUOvercommit
       annotations:
-        message: Cluster has overcommitted CPU resource requests for Pods and cannot tolerate node failure.
+        message: Cluster has overcommitted CPU resource requests for Pods by {{`{{`}} $value {{`}}`}} CPU shares and cannot tolerate node failure.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubecpuovercommit
         summary: Cluster has overcommitted CPU resource requests.
       expr: |-
-        sum(namespace_cpu:kube_pod_container_resource_requests:sum{})
-          /
-        sum(kube_node_status_allocatable{resource="cpu"})
-          >
-        ((count(kube_node_status_allocatable{resource="cpu"}) > 1) - 1) / count(kube_node_status_allocatable{resource="cpu"})
-      for: 5m
+        sum(namespace_cpu:kube_pod_container_resource_requests:sum{}) - (sum(kube_node_status_allocatable{resource="cpu"}) - max(kube_node_status_allocatable{resource="cpu"})) > 0
+        and
+        (sum(kube_node_status_allocatable{resource="cpu"}) - max(kube_node_status_allocatable{resource="cpu"})) > 0
+      for: 10m
       labels:
         severity: warning
         {{- if .Values.additionalRuleLabels }}
@@ -41,18 +39,14 @@ spec:
     {{- if not (has "KubeMemoryOvercommit" .Values.ruleGroups.kubernetesResources.disabledRules)}}
     - alert: KubeMemoryOvercommit
       annotations:
-        message: Cluster has overcommitted memory resource requests for Pods and cannot tolerate node failure.
+        message: Cluster has overcommitted memory resource requests for Pods by {{`{{`}} $value | humanize {{`}}`}} bytes and cannot tolerate node failure.
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubememoryovercommit
         summary: Cluster has overcommitted memory resource requests.
       expr: |-
-        sum(namespace_memory:kube_pod_container_resource_requests:sum{})
-          /
-        sum(kube_node_status_allocatable{resource="memory"})
-          >
-        ((count(kube_node_status_allocatable{resource="memory"}) > 1) - 1)
-          /
-        count(kube_node_status_allocatable{resource="memory"})
-      for: 5m
+        sum(namespace_memory:kube_pod_container_resource_requests:sum{}) - (sum(kube_node_status_allocatable{resource="memory"}) - max(kube_node_status_allocatable{resource="memory"})) > 0
+        and
+        (sum(kube_node_status_allocatable{resource="memory"}) - max(kube_node_status_allocatable{resource="memory"})) > 0
+      for: 10m
       labels:
         severity: warning
         {{- if .Values.additionalRuleLabels }}
@@ -66,9 +60,9 @@ spec:
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubecpuquotaovercommit
         summary: Cluster has overcommitted CPU resource requests.
       expr: |-
-        sum(kube_resourcequota{job="kube-state-metrics", type="hard", resource="cpu"})
+        sum(min without(resource) (kube_resourcequota{job="kube-state-metrics", type="hard", resource=~"(cpu|requests.cpu)"}))
           /
-        sum(kube_node_status_allocatable{resource="cpu"})
+        sum(kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"})
           > 1.5
       for: 5m
       labels:
@@ -84,9 +78,9 @@ spec:
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubememoryquotaovercommit
         summary: Cluster has overcommitted memory resource requests.
       expr: |-
-        sum(kube_resourcequota{job="kube-state-metrics", type="hard", resource="memory"})
+        sum(min without(resource) (kube_resourcequota{job="kube-state-metrics", type="hard", resource=~"(memory|requests.memory)"}))
           /
-        sum(kube_node_status_allocatable{resource="memory",job="kube-state-metrics"})
+        sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"})
           > 1.5
       for: 5m
       labels:
