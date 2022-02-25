@@ -169,7 +169,7 @@ spec:
              !=
             0
           ) or (
-            kube_daemonset_updated_number_scheduled{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}
+            kube_daemonset_status_updated_number_scheduled{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}
              !=
             kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}
           ) or (
@@ -178,7 +178,7 @@ spec:
             kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}
           )
         ) and (
-          changes(kube_daemonset_updated_number_scheduled{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}[5m])
+          changes(kube_daemonset_status_updated_number_scheduled{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}[5m])
             ==
           0
         )
@@ -339,10 +339,10 @@ spec:
     {{- if not (has "KubePodCrashLooping" .Values.ruleGroups.kubernetesApps.disabledRules)}}
     - alert: KubePodCrashLooping
       annotations:
-        message: 'Pod: {{`{{`}} $labels.pod {{`}}`}}, namespace: {{`{{`}} $labels.namespace {{`}}`}}, container:  {{`{{`}} $labels.container {{`}}`}} restarted {{`{{`}} $value {{`}}`}} times in the last 5 minutes.'
+        message: 'Pod {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.pod {{`}}`}} ({{`{{`}} $labels.container {{`}}`}}) is in waiting state (reason: "CrashLoopBackOff").'
         runbook_url: {{ .Values.runbookUrl }}alert-name-kubepodcrashlooping
         summary: Pod is crash looping.
-      expr: round(increase(kube_pod_container_status_restarts_total{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}[5m])) > 1
+      expr: max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}[5m]) >= 1
       for: 0s
       labels:
         severity: warning

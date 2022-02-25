@@ -1,5 +1,5 @@
 ---
-{{- if .Values.ruleGroups.node.enabled }}
+{{- if .Values.ruleGroups.nodeExporterAlerting.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -19,7 +19,7 @@ spec:
   groups:
   - name: node-exporter
     rules:
-    {{- if not (has "NodeFilesystemSpaceFillingUp" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeFilesystemSpaceFillingUp" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeFilesystemSpaceFillingUp
       annotations:
         message: Filesystem on {{`{{`}} $labels.device {{`}}`}} at {{`{{`}} $labels.instance {{`}}`}} has only {{`{{`}} printf "%.2f" $value {{`}}`}}% available space left and is filling up.
@@ -40,7 +40,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeFilesystemSpaceFillingUp" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeFilesystemSpaceFillingUp" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeFilesystemSpaceFillingUp
       annotations:
         message: Filesystem on {{`{{`}} $labels.device {{`}}`}} at {{`{{`}} $labels.instance {{`}}`}} has only {{`{{`}} printf "%.2f" $value {{`}}`}}% available space left and is filling up fast.
@@ -61,7 +61,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeFilesystemAlmostOutOfSpace" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeFilesystemAlmostOutOfSpace" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeFilesystemAlmostOutOfSpace
       annotations:
         message: Filesystem on {{`{{`}} $labels.device {{`}}`}} at {{`{{`}} $labels.instance {{`}}`}} has only {{`{{`}} printf "%.2f" $value {{`}}`}}% available space left.
@@ -80,7 +80,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeFilesystemAlmostOutOfSpace" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeFilesystemAlmostOutOfSpace" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeFilesystemAlmostOutOfSpace
       annotations:
         message: Filesystem on {{`{{`}} $labels.device {{`}}`}} at {{`{{`}} $labels.instance {{`}}`}} has only {{`{{`}} printf "%.2f" $value {{`}}`}}% available space left.
@@ -99,7 +99,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeFilesystemFilesFillingUp" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeFilesystemFilesFillingUp" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeFilesystemFilesFillingUp
       annotations:
         message: Filesystem on {{`{{`}} $labels.device {{`}}`}} at {{`{{`}} $labels.instance {{`}}`}} has only {{`{{`}} printf "%.2f" $value {{`}}`}}% available inodes left and is filling up.
@@ -120,7 +120,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeFilesystemFilesFillingUp" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeFilesystemFilesFillingUp" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeFilesystemFilesFillingUp
       annotations:
         message: Filesystem on {{`{{`}} $labels.device {{`}}`}} at {{`{{`}} $labels.instance {{`}}`}} has only {{`{{`}} printf "%.2f" $value {{`}}`}}% available inodes left and is filling up fast.
@@ -141,7 +141,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeFilesystemAlmostOutOfFiles" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeFilesystemAlmostOutOfFiles" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeFilesystemAlmostOutOfFiles
       annotations:
         message: Filesystem on {{`{{`}} $labels.device {{`}}`}} at {{`{{`}} $labels.instance {{`}}`}} has only {{`{{`}} printf "%.2f" $value {{`}}`}}% available inodes left.
@@ -160,7 +160,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeFilesystemAlmostOutOfFiles" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeFilesystemAlmostOutOfFiles" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeFilesystemAlmostOutOfFiles
       annotations:
         message: Filesystem on {{`{{`}} $labels.device {{`}}`}} at {{`{{`}} $labels.instance {{`}}`}} has only {{`{{`}} printf "%.2f" $value {{`}}`}}% available inodes left.
@@ -179,7 +179,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeNetworkReceiveErrs" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeNetworkReceiveErrs" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeNetworkReceiveErrs
       annotations:
         message: '{{`{{`}} $labels.instance {{`}}`}} interface {{`{{`}} $labels.device {{`}}`}} has encountered {{`{{`}} printf "%.0f" $value {{`}}`}} receive errors in the last two minutes.'
@@ -193,7 +193,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeNetworkTransmitErrs" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeNetworkTransmitErrs" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeNetworkTransmitErrs
       annotations:
         message: '{{`{{`}} $labels.instance {{`}}`}} interface {{`{{`}} $labels.device {{`}}`}} has encountered {{`{{`}} printf "%.0f" $value {{`}}`}} transmit errors in the last two minutes.'
@@ -207,7 +207,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeHighNumberConntrackEntriesUsed" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeHighNumberConntrackEntriesUsed" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeHighNumberConntrackEntriesUsed
       annotations:
         message: '{{`{{`}} $value | humanizePercentage {{`}}`}} of conntrack entries are used.'
@@ -220,7 +220,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeTextFileCollectorScrapeError" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeTextFileCollectorScrapeError" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeTextFileCollectorScrapeError
       annotations:
         message: Node Exporter text file collector failed to scrape.
@@ -233,7 +233,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeClockSkewDetected" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeClockSkewDetected" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeClockSkewDetected
       annotations:
         message: Clock on {{`{{`}} $labels.instance {{`}}`}} is out of sync by more than 300s. Ensure NTP is configured correctly on this host.
@@ -258,7 +258,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeClockNotSynchronising" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeClockNotSynchronising" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeClockNotSynchronising
       annotations:
         message: Clock on {{`{{`}} $labels.instance {{`}}`}} is not synchronising. Ensure NTP is configured on this host.
@@ -275,7 +275,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeRAIDDegraded" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeRAIDDegraded" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeRAIDDegraded
       annotations:
         message: RAID array '{{`{{`}} $labels.device {{`}}`}}' on {{`{{`}} $labels.instance {{`}}`}} is in degraded state due to one or more disks failures. Number of spare drives is insufficient to fix issue automatically.
@@ -289,7 +289,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeRAIDDiskFailure" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeRAIDDiskFailure" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeRAIDDiskFailure
       annotations:
         message: At least one device in RAID array on {{`{{`}} $labels.instance {{`}}`}} failed. Array '{{`{{`}} $labels.device {{`}}`}}' needs attention and possibly a disk swap.
@@ -302,7 +302,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeFileDescriptorLimit" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeFileDescriptorLimit" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeFileDescriptorLimit
       annotations:
         description: File descriptors limit at {{`{{`}} $labels.instance {{`}}`}} is currently at {{`{{`}} printf "%.2f" $value {{`}}`}}%.
@@ -319,7 +319,7 @@ spec:
         {{- toYaml .Values.additionalRuleLabels | nindent 8 }}
         {{- end }}
     {{- end }}
-    {{- if not (has "NodeFileDescriptorLimit" .Values.ruleGroups.node.disabledRules)}}
+    {{- if not (has "NodeFileDescriptorLimit" .Values.ruleGroups.nodeExporterAlerting.disabledRules)}}
     - alert: NodeFileDescriptorLimit
       annotations:
         description: File descriptors limit at {{`{{`}} $labels.instance {{`}}`}} is currently at {{`{{`}} printf "%.2f" $value {{`}}`}}%.
