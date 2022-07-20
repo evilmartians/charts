@@ -9,6 +9,10 @@ ruleGroups:
       - AlertmanagerConfigInconsistent
       - AlertmanagerMembersInconsistent
 
+  configReloaders:
+    enabled: true
+    disabledRules: []
+
   # If you want to use this rule group
   # you must have kubeEtcd.enabled = true
   # in your values.yaml for kube-prometheus-stack chart
@@ -20,10 +24,6 @@ ruleGroups:
     enabled: true
     disabledRules:
       - TargetDown
-
-  helm:
-    enabled: true
-    disabledRules: []
 
   # If you want to use this rule group
   # you must have kubeApiServer.enabled = true
@@ -60,6 +60,10 @@ ruleGroups:
     disabledRules:
       - KubeletTooManyPods
       - KubeVersionMismatch
+
+  kubeProxy:
+    enabled: true
+    disabledRules: []
 
   # If you want to use this rule group
   # you must have kubeScheduler.enabled = true

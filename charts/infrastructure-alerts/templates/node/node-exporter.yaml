@@ -27,7 +27,7 @@ spec:
         summary: Filesystem is predicted to run out of space within the next 24 hours.
       expr: |-
         (
-          node_filesystem_avail_bytes{job="node-exporter",fstype!=""} / node_filesystem_size_bytes{job="node-exporter",fstype!=""} * 100 < 20
+          node_filesystem_avail_bytes{job="node-exporter",fstype!=""} / node_filesystem_size_bytes{job="node-exporter",fstype!=""} * 100 < 15
         and
           predict_linear(node_filesystem_avail_bytes{job="node-exporter",fstype!=""}[6h], 24*60*60) < 0
         and
@@ -66,10 +66,10 @@ spec:
       annotations:
         message: Filesystem on {{`{{`}} $labels.device {{`}}`}} at {{`{{`}} $labels.instance {{`}}`}} has only {{`{{`}} printf "%.2f" $value {{`}}`}}% available space left.
         runbook_url: {{ .Values.runbookUrl }}alert-name-nodefilesystemspacefillingup
-        summary: Filesystem has less than 5% space left.
+        summary: Filesystem has less than 3% space left.
       expr: |-
         (
-          node_filesystem_avail_bytes{job="node-exporter",fstype!=""} / node_filesystem_size_bytes{job="node-exporter",fstype!=""} * 100 < 5
+          node_filesystem_avail_bytes{job="node-exporter",fstype!=""} / node_filesystem_size_bytes{job="node-exporter",fstype!=""} * 100 < 3
         and
           node_filesystem_readonly{job="node-exporter",fstype!=""} == 0
         )
@@ -85,10 +85,10 @@ spec:
       annotations:
         message: Filesystem on {{`{{`}} $labels.device {{`}}`}} at {{`{{`}} $labels.instance {{`}}`}} has only {{`{{`}} printf "%.2f" $value {{`}}`}}% available space left.
         runbook_url: {{ .Values.runbookUrl }}alert-name-nodefilesystemspacefillingup
-        summary: Filesystem has less than 3% space left.
+        summary: Filesystem has less than 5% space left.
       expr: |-
         (
-          node_filesystem_avail_bytes{job="node-exporter",fstype!=""} / node_filesystem_size_bytes{job="node-exporter",fstype!=""} * 100 < 3
+          node_filesystem_avail_bytes{job="node-exporter",fstype!=""} / node_filesystem_size_bytes{job="node-exporter",fstype!=""} * 100 < 5
         and
           node_filesystem_readonly{job="node-exporter",fstype!=""} == 0
         )

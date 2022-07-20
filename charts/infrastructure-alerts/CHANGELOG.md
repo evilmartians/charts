@@ -1,4 +1,5 @@
-# UNRELEASED
+# 0.5.0 (20.07.2022)
+- Synchronize rules with kube-prometheus-stack version 37.2.0
 
 # 0.4.0 (25.02.2022)
 - Synchronize rules with kube-prometheus-stack version 33.0.0
