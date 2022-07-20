@@ -1,40 +1,6 @@
 # Helm chart infrastructure-alerts
 
-This chart contains a collection of `PrometheusRule` manifests from [kube-prometheus-stack chart](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack). Why did we need to copy them into a new chart? Because you can enable and disable rules in `kube-prometheus-stack` only in groups:
-
-```yaml
-defaultRules:
-  create: true
-  rules:
-    alertmanager: true
-    etcd: true
-    general: true
-    k8s: true
-    ...
-```
-
-This chart adds more granularity. Now you can disable specific rule(s) in any group or whole group if you don't need any of its rules:
-
-```yaml
-ruleGroups:
-  alertmanager:
-    enabled: true
-    disabledRules:
-      - AlertmanagerConfigInconsistent
-      - AlertmanagerMembersInconsistent
-
-  etcd:
-    enabled: false
-    disabledRules: []
-
-  general:
-    enabled: true
-    disabledRules:
-      - TargetDown
-
-  ...
-
-```
+This chart contains a collection of `PrometheusRule` manifests from [kube-prometheus-stack chart](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) adjusted to our needs.
 
 ## Dependencies
 
@@ -66,36 +32,33 @@ defaultRules:
     # these rule groups contain only "record" rules
     # and they should always be enabled
     k8s: true
-    kubeApiserver: true
     kubeApiserverAvailability: true
-    kubelet: true
+    kubeApiserverBurnrate: true
+    kubeApiserverHistogram: true
     kubePrometheusGeneral: true
     kubePrometheusNodeRecording: true
+    kubelet: true
     node: true
     nodeExporterRecording: true
 
     # these rule groups can be disabled in kube-prometheus-stack chart
     # and replaced by rules from this chart
     alertmanager: false
+    configReloaders: false
     etcd: false
     general: false
     kubeApiserverSlos: false
+    kubeProxy: false
+    kubeScheduler: false
+    kubeStateMetrics: false
     kubernetesApps: false
     kubernetesResources: false
     kubernetesStorage: false
     kubernetesSystem: false
-    kubeScheduler: false
-    kubeStateMetrics: false
     network: false
-	nodeExporterAlerting: false
+    nodeExporterAlerting: false
     prometheus: false
     prometheusOperator: false
-
-    # old rule groups for Kubernetes before version 1.14
-    kubeApiserverError: false
-    kubePrometheusNodeAlerting: false
-    kubernetesAbsent: false
-    time: false
 ```
 
 ## Important notes

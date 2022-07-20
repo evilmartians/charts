@@ -1,9 +1,9 @@
 ---
-{{- if .Values.ruleGroups.helm.enabled }}
+{{- if .Values.ruleGroups.kubeProxy.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: {{ printf "%s-%s" (include "infrastructure-alerts.fullname" .) "helm" | trunc 63 | trimSuffix "-" }}
+  name: {{ printf "%s-%s" (include "infrastructure-alerts.fullname" .) "kubeProxy.rules" | trunc 63 | trimSuffix "-" }}
   namespace: {{ template "infrastructure-alerts.namespace" . }}
   labels:
     app: {{ template "infrastructure-alerts.name" . }}
@@ -17,14 +17,14 @@ metadata:
   {{- end }}
 spec:
   groups:
-  - name: helm
+  - name: kubernetes-system-kube-proxy
     rules:
-    {{- if not (has "HelmReleaseFailed" .Values.ruleGroups.helm.disabledRules) }}
-    - alert: HelmReleaseFailed
+    {{- if not (has "KubeProxyDown" .Values.ruleGroups.kubeProxy.disabledRules)}}
+    - alert: KubeProxyDown
       annotations:
-        message: Helm Release deploy/sync failed
-      expr: flux_helm_operator_release_condition_info{condition="Released"} == -1
-      for: 10m
+        message: KubeProxy has disappeared from Prometheus target discovery.
+      expr: absent(up{job="kube-proxy"} == 1)
+      for: 15m
       labels:
         severity: dangerous
         {{- if .Values.additionalRuleLabels }}
