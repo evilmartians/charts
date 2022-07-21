@@ -3,7 +3,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: {{ printf "%s-%s" (include "infrastructure-alerts.fullname" .) "kubeProxy.rules" | trunc 63 | trimSuffix "-" }}
+  name: {{ printf "%s-%s" (include "infrastructure-alerts.fullname" .) "kubernetes-system-kube-proxy" | trunc 63 | trimSuffix "-" }}
   namespace: {{ template "infrastructure-alerts.namespace" . }}
   labels:
     app: {{ template "infrastructure-alerts.name" . }}
