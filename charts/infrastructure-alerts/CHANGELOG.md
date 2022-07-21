@@ -1,3 +1,6 @@
+# 0.5.1 (21.07.2022)
+- Fix configReloaders and kubeProxy names
+
 # 0.5.0 (20.07.2022)
 - Synchronize rules with kube-prometheus-stack version 37.2.0
 
