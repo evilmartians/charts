@@ -1,3 +1,6 @@
+# 0.5.2 (25.07.2022)
+- Disable KubeProxy alerts
+
 # 0.5.1 (21.07.2022)
 - Fix configReloaders and kubeProxy names
 

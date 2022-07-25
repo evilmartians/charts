@@ -62,7 +62,7 @@ ruleGroups:
       - KubeVersionMismatch
 
   kubeProxy:
-    enabled: true
+    enabled: false
     disabledRules: []
 
   # If you want to use this rule group

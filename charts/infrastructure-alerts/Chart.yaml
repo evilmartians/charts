@@ -3,7 +3,7 @@ apiVersion: v2
 name: infrastructure-alerts
 description: A Helm chart with tuned PrometheusRules from kube-prometheus-stack chart
 appVersion: "37.2.0"  # kube-prometheus-stack version
-version: 0.5.1
+version: 0.5.2
 maintainers:
   - name: Ilya Cherepanov
     email: deponian@evilmartians.com
