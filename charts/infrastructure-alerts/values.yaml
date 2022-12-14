@@ -68,7 +68,7 @@ ruleGroups:
   # If you want to use this rule group
   # you must have kubeScheduler.enabled = true
   # in your values.yaml for kube-prometheus-stack chart
-  kubeScheduler:
+  kubeSchedulerAlerting:
     enabled: false
     disabledRules: []
 
