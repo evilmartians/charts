@@ -1,5 +1,5 @@
 ---
-{{- if .Values.ruleGroups.kubeScheduler.enabled }}
+{{- if .Values.ruleGroups.kubeSchedulerAlerting.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -19,7 +19,7 @@ spec:
   groups:
   - name: kubernetes-system-scheduler
     rules:
-    {{- if not (has "KubeSchedulerDown" .Values.ruleGroups.kubeScheduler.disabledRules)}}
+    {{- if not (has "KubeSchedulerDown" .Values.ruleGroups.kubeSchedulerAlerting.disabledRules)}}
     - alert: KubeSchedulerDown
       annotations:
         message: KubeScheduler has disappeared from Prometheus target discovery.

@@ -1,3 +1,6 @@
+# 0.6.0 (14.12.2022)
+- Synchronize rules with kube-prometheus-stack version 43.0.0
+
 # 0.5.2 (25.07.2022)
 - Disable KubeProxy alerts
 

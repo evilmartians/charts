@@ -37,6 +37,7 @@ defaultRules:
     kubeApiserverHistogram: true
     kubePrometheusGeneral: true
     kubePrometheusNodeRecording: true
+    kubeSchedulerRecording: true
     kubelet: true
     node: true
     nodeExporterRecording: true
@@ -49,7 +50,7 @@ defaultRules:
     general: false
     kubeApiserverSlos: false
     kubeProxy: false
-    kubeScheduler: false
+    kubeSchedulerAlerting: false
     kubeStateMetrics: false
     kubernetesApps: false
     kubernetesResources: false
