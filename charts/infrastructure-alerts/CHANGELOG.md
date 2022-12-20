@@ -1,3 +1,6 @@
+# 0.6.1 (20.12.2022)
+- Fix KubeContainerWaiting alert
+
 # 0.6.0 (14.12.2022)
 - Synchronize rules with kube-prometheus-stack version 43.0.0
 
