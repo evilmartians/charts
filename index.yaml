@@ -429,6 +429,20 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/cloudsql-backup-check-0.1.0/cloudsql-backup-check-0.1.0.tgz
     version: 0.1.0
+  extra-alerts:
+  - apiVersion: v2
+    appVersion: 43.0.0
+    created: "2023-01-31T11:27:45.175262817Z"
+    description: A Helm chart with some tuned extra PrometheusRules from kube-prometheus-stack
+      chart
+    digest: 3f5c1fd143f04623e4daea26834a332bff37b2b2d04d069f7c25ae4d34f6cfd3
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: extra-alerts
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/extra-alerts-0.1.0/extra-alerts-0.1.0.tgz
+    version: 0.1.0
   gke-storage-classes:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -788,4 +802,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-20T09:32:23.957003949Z"
+generated: "2023-01-31T11:27:45.175574133Z"
