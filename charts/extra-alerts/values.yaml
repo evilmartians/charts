@@ -1,0 +1,14 @@
+---
+# Reduce app namespace alert scope
+appNamespacesTarget: ".*"
+
+# Labels for PrometheusRules
+labels: {}
+
+# Annotations for PrometheusRules
+annotations: {}
+
+# Additional labels for PrometheusRules' alerts
+additionalRuleLabels:
+  responsible: ops
+  type: incluster
