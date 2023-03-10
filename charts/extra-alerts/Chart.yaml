@@ -2,8 +2,8 @@
 apiVersion: v2
 name: extra-alerts
 description: A Helm chart with some tuned extra PrometheusRules from kube-prometheus-stack chart
-appVersion: "43.0.0"  # kube-prometheus-stack version
-version: 0.2.0
+appVersion: "45.7.1"  # kube-prometheus-stack version
+version: 0.3.0
 maintainers:
   - name: Ilya Cherepanov
     email: deponian@evilmartians.com
