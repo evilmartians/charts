@@ -799,6 +799,23 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/pgbouncer-0.1.0/pgbouncer-0.1.0.tgz
     version: 0.1.0
+  preview-apps:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-03-28T12:23:44.807141807Z"
+    dependencies:
+    - name: reflector
+      repository: https://emberstack.github.io/helm-charts
+      version: 7.0.151
+    description: Creating resourses for preview apps
+    digest: 0767f4ccb7d4ef9b40165f8a96cc758d2151519929f1f1dbee822a7b21868f67
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: preview-apps
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/preview-apps-0.1.0/preview-apps-0.1.0.tgz
+    version: 0.1.0
   priority-classes:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -828,4 +845,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2023-03-10T14:09:47.468482839Z"
+generated: "2023-03-28T12:23:44.807684012Z"
