@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: preview-apps-wildcard
+  name: {{ .Values.certificate.name }}
 spec:
-  secretName: preview-apps-wildcard
+  secretName: {{ .Values.certificate.name }}
   issuerRef: 
     kind: Issuer
-    name: preview-apps
+    name: {{ .Values.issuer.name }}
   commonName: "*.{{ .Values.dnsZone }}"
   dnsNames:
     - "*.{{ .Values.dnsZone }}"
