@@ -2,13 +2,13 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: preview-apps
+  name: {{ .Values.issuer.name }}
 spec:
   acme:
     email: {{ .Values.issuer.email }}
     server: {{ .Values.issuer.server }}
     privateKeySecretRef:
-      name: preview-apps
+      name: {{ .Values.issuer.name }}
     solvers:
     - selector:
         dnsZones:
