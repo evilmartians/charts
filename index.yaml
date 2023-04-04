@@ -802,6 +802,22 @@ entries:
   preview-apps:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2023-04-04T12:23:26.461946188Z"
+    dependencies:
+    - name: kubernetes-replicator
+      repository: https://helm.mittwald.de
+      version: 2.7.3
+    description: Creating resourses for preview apps
+    digest: 5ecb07d444d41d91f6e5a5082d98d9ccbbae32b4d36aded3d3ca2f59f0f48ed2
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: preview-apps
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/preview-apps-0.3.0/preview-apps-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2023-04-04T10:01:02.329163666Z"
     dependencies:
     - name: kubernetes-replicator
@@ -861,4 +877,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-04T10:01:02.335242021Z"
+generated: "2023-04-04T12:23:26.462263387Z"
