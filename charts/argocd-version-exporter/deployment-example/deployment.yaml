@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-exporter
+  namespace: argocd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: argocd-exporter
+  template:
+    metadata:
+      labels:
+        app: argocd-exporter
+    spec:
+      serviceAccountName: argocd-exporter
+      containers:
+      - name: argocd-exporter
+        image: us-docker.pkg.dev/evilmartians/argocd-exporter/argocd-exporter:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+        env:
+          - name: PORT
+            value: "8080"
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+          requests:
+            cpu: 25m
+            memory: 128Mi
+      topologySpreadConstraints:
+      - labelSelector:
+          matchLabels:
+            app: argocd-exporter
+        maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: DoNotSchedule
+      - labelSelector:
+          matchLabels:
+            app: argocd-exporter
+        maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+
