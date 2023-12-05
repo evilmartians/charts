@@ -12,3 +12,7 @@ annotations: {}
 additionalRuleLabels:
   responsible: ops
   type: incluster
+
+# Should match the value in kube-prometheus-stack values file
+defaultRules:
+  additionalAggregationLabels: []
