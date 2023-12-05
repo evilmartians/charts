@@ -431,6 +431,19 @@ entries:
     version: 0.1.0
   extra-alerts:
   - apiVersion: v2
+    appVersion: 55.0.0
+    created: "2023-12-05T11:57:58.05697474Z"
+    description: A Helm chart with some tuned extra PrometheusRules from kube-prometheus-stack
+      chart
+    digest: 42ff30f06a017905af08678cb3d47f7f91ab6ea6feaff47fd903c5d355b99e86
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: extra-alerts
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/extra-alerts-0.4.0/extra-alerts-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     appVersion: 45.7.1
     created: "2023-03-10T14:09:47.468235739Z"
     description: A Helm chart with some tuned extra PrometheusRules from kube-prometheus-stack
@@ -877,4 +890,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-04T12:23:26.462263387Z"
+generated: "2023-12-05T11:57:58.057117376Z"
