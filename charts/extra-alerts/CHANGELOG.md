@@ -1,3 +1,6 @@
+# 0.5.0 (29.04.2024)
+- Update kube-prometheus-stack to 58.0.0
+
 # 0.4.0 (05.12.2023)
 - Update kube-prometheus-stack to 55.0.0
 
