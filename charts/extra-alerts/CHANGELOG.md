@@ -1,4 +1,7 @@
-# 0.5.0 (29.04.2024)
+# 0.6.0 (12.04.2024)
+- Disable PodMemoryUsageLimit alert for "kube-system" namespace
+
+# 0.5.0 (09.04.2024)
 - Update kube-prometheus-stack to 58.0.0
 
 # 0.4.0 (05.12.2023)
