@@ -1,3 +1,6 @@
+# 0.6.1 (12.04.2024)
+- Fix typo
+
 # 0.6.0 (12.04.2024)
 - Disable PodMemoryUsageLimit alert for "kube-system" namespace
 

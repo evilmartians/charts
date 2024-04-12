@@ -89,7 +89,7 @@ spec:
         description: 'Pod: {{`{{`}} $labels.pod {{`}}`}}, namespace: {{`{{`}} $labels.namespace {{`}}`}} memory usage {{`{{`}} printf "%.2f" $value {{`}}`}}% more than 85% of its limit for 1h'
         summary: Pod uses more than 85% of its memory limit.
       expr: |-
-        sum(label_replace(container_memory_working_set_bytes{container!="", namespace!="kube-system", "pod", "$1", "pod", "(.*)")) by (pod, namespace) 
+        sum(label_replace(container_memory_working_set_bytes{container!="", namespace!="kube-system"}, "pod", "$1", "pod", "(.*)")) by (pod, namespace)
           /
         sum(kube_pod_container_resource_limits{resource="memory", namespace!="kube-system"}) by (pod,namespace) * 100 > 85
       for: 60m
