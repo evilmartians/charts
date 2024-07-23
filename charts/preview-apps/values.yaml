@@ -5,6 +5,8 @@ dnsZone: "preview.sandbox.evilmartians.net"
 # Corresponding tls secret will have the same name
 certificate:
   name: preview-apps-tls
+  # you will be able replicate certificate only to these namespaces
+  allowedNamespaces: "preview-pr-[0-9]+"
 
 # Cert-manager issuer
 issuer:

@@ -14,4 +14,4 @@ spec:
   secretTemplate:
     annotations:
       replicator.v1.mittwald.de/replication-allowed: "true"
-      replicator.v1.mittwald.de/replication-allowed-namespaces: "preview-[0-9]+"
+      replicator.v1.mittwald.de/replication-allowed-namespaces: {{ .Values.certificate.allowedNamespaces }}
