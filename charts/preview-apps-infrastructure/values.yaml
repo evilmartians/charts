@@ -1,0 +1,24 @@
+# DNS zone where preview apps will be created
+dnsZone: "preview.sandbox.evilmartians.net"
+
+# Certificate that will be used by all preview apps
+# Corresponding tls secret will have the same name
+certificate:
+  name: preview-apps-common-tls
+  # you will be able replicate certificate only to these namespaces
+  allowedNamespaces: "preview-pr-[0-9]+"
+
+# Cert-manager issuer
+issuer:
+  name: preview-apps
+  email: admin@evilmartians.com
+  server: https://acme-v02.api.letsencrypt.org/directory
+  # DNS-01 challenge is the only way to get wildcard certificate
+  dns01:
+    route53:
+      region: us-east-1
+      hostedZoneID: Z0152EXAMPLE
+      accessKeyID: AKIA5EXAMPLE
+      secretAccessKeySecretRef:
+        name: route53-secret
+        key: secret-access-key
