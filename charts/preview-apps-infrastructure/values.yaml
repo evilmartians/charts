@@ -15,10 +15,15 @@ issuer:
   server: https://acme-v02.api.letsencrypt.org/directory
   # DNS-01 challenge is the only way to get wildcard certificate
   dns01:
-    route53:
-      region: us-east-1
-      hostedZoneID: Z0152EXAMPLE
-      accessKeyID: AKIA5EXAMPLE
-      secretAccessKeySecretRef:
-        name: route53-secret
-        key: secret-access-key
+    # route53:
+    #   region: us-east-1
+    #   hostedZoneID: Z0152EXAMPLE
+    #   accessKeyID: AKIA5EXAMPLE
+    #   secretAccessKeySecretRef:
+    #     name: route53-secret
+    #     key: secret-access-key
+    # cloudDNS:
+    #   project: "project-name"
+    #   serviceAccountSecretRef:
+    #     name: "google-cloud-dns"
+    #     key: "credentials.json"
