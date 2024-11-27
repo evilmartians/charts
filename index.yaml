@@ -933,6 +933,22 @@ entries:
   preview-apps-infrastructure:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-11-27T10:15:32.782510634Z"
+    dependencies:
+    - name: kubernetes-replicator
+      repository: https://helm.mittwald.de
+      version: 2.10.0
+    description: Creating infrastructure resources for preview apps
+    digest: 7bf33d57d372bab88d60ffab08978a3b764d523462918f1a11054d5db70137fa
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: preview-apps-infrastructure
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/preview-apps-infrastructure-0.6.0/preview-apps-infrastructure-0.6.0.tgz
+    version: 0.6.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-11-26T13:08:03.834557471Z"
     dependencies:
     - name: kubernetes-replicator
@@ -976,4 +992,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-26T13:08:03.834692072Z"
+generated: "2024-11-27T10:15:32.782635338Z"
