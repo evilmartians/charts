@@ -1,3 +1,6 @@
+# 0.7.0 (24.03.2025)
+- Update kube-prometheus-stack to 70.2.1
+
 # 0.6.1 (12.04.2024)
 - Fix typo
 
