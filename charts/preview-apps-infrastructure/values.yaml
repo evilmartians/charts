@@ -27,3 +27,7 @@ issuer:
     #   serviceAccountSecretRef:
     #     name: "google-cloud-dns"
     #     key: "credentials.json"
+
+kubernetes-replicator:
+  args:
+    - -sync-by-content=true
