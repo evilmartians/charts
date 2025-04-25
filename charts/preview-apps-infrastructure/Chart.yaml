@@ -3,7 +3,7 @@ apiVersion: v2
 appVersion: "1.0.0"
 description: Creating infrastructure resources for preview apps
 name: preview-apps-infrastructure
-version: 0.6.0
+version: 0.7.0
 maintainers:
   - name: Ilya Cherepanov
     email: deponian@evilmartians.com
@@ -11,4 +11,4 @@ maintainers:
 dependencies:
 - name: kubernetes-replicator
   repository: https://helm.mittwald.de
-  version: 2.10.0
+  version: 2.11.1
