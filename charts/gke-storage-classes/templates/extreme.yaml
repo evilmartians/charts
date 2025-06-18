@@ -1,4 +1,3 @@
-{{ if .Values.csi }}
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -22,4 +21,3 @@ provisioner: pd.csi.storage.gke.io
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
-{{ end }}

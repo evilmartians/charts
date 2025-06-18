@@ -1,9 +1,10 @@
-{{ if .Values.csi }}
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: balanced-zonal
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
 parameters:
   type: pd-balanced
 provisioner: pd.csi.storage.gke.io
@@ -22,4 +23,3 @@ provisioner: pd.csi.storage.gke.io
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
-{{ end }}

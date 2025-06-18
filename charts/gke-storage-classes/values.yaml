@@ -1,4 +1,0 @@
-# legacy - in-tree driver "kubernetes.io/gce-pd"
-# csi - pd.csi.storage.gke.io
-legacy: true
-csi: false
