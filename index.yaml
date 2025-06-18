@@ -551,6 +551,18 @@ entries:
   gke-storage-classes:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-06-18T14:17:56.093874458Z"
+    description: GKE Storage Classes
+    digest: 6cb904c5c354ac86d79ca312fa8947db92ebad53b8437a6671b60de5f2f96dd0
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: gke-storage-classes
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/gke-storage-classes-0.3.0/gke-storage-classes-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2021-10-07T08:36:22.733252355Z"
     description: GKE Storage Classes
     digest: 8719c5c11e743d2166d327f29c071bf8493b9cdc0cd83769f1b08e1d0e63f187
@@ -1021,4 +1033,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-25T14:44:44.57099562Z"
+generated: "2025-06-18T14:17:56.094021752Z"
