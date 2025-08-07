@@ -32,10 +32,10 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct --config ./.github/configs/ct-lint.yaml list-changed)
-          if [[ -n "$changed" ]]; then
+          changed="$(ct --config ./.github/configs/ct-lint.yaml list-changed --target-branch "${GITHUB_HEAD_REF}")"
+          if [[ -n "${changed}" ]]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --config ./.github/configs/ct-lint.yaml --lint-conf ./.github/configs/lintconf.yaml --chart-yaml-schema ./.github/configs/chart_schema.yaml
+        run: ct lint --config ./.github/configs/ct-lint.yaml --lint-conf ./.github/configs/lintconf.yaml --chart-yaml-schema ./.github/configs/chart_schema.yaml --target-branch "${GITHUB_HEAD_REF}"
