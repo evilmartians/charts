@@ -1,0 +1,9 @@
+---
+apiVersion: v2
+description: Node Pools for EKS Auto Mode
+appVersion: "1.0.0"
+name: eks-node-pools
+version: 0.1.0
+maintainers:
+  - name: Ilya Cherepanov
+    email: deponian@evilmartians.com
