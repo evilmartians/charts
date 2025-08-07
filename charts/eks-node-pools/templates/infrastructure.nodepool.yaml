@@ -33,7 +33,7 @@ spec:
         - key: eks.amazonaws.com/instance-generation
           operator: Gt
           values:
-            - "3"
+            - "2"
         - key: kubernetes.io/arch
           operator: In
           values:
