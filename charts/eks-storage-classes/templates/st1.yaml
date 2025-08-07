@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: st1
+provisioner: ebs.csi.eks.amazonaws.com
+parameters:
+  csi.storage.k8s.io/fstype: xfs
+  encrypted: "true"
+  type: st1
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
