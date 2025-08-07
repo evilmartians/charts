@@ -443,6 +443,19 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/cloudsql-backup-check-0.1.0/cloudsql-backup-check-0.1.0.tgz
     version: 0.1.0
+  eks-node-pools:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-08-07T09:48:00.165143663Z"
+    description: Node Pools for EKS Auto Mode
+    digest: b13a2ead74b816c39443c5123b81976e4a4548b1fdee187607264b0100582d65
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: eks-node-pools
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/eks-node-pools-0.1.0/eks-node-pools-0.1.0.tgz
+    version: 0.1.0
   eks-storage-classes:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -1046,4 +1059,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-07T08:42:26.96350743Z"
+generated: "2025-08-07T09:48:00.165411193Z"
