@@ -443,6 +443,19 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/cloudsql-backup-check-0.1.0/cloudsql-backup-check-0.1.0.tgz
     version: 0.1.0
+  eks-storage-classes:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-08-07T08:42:26.96333045Z"
+    description: Storage classes for EKS Auto Mode
+    digest: d91f5985a35bca3d26f4e6459f900e5295ce6377e55078baff8e9e8372f56006
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: eks-storage-classes
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/eks-storage-classes-0.1.0/eks-storage-classes-0.1.0.tgz
+    version: 0.1.0
   extra-alerts:
   - apiVersion: v2
     appVersion: 70.2.1
@@ -1033,4 +1046,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-18T14:17:56.094021752Z"
+generated: "2025-08-07T08:42:26.96350743Z"
