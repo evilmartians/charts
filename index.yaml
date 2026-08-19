@@ -446,6 +446,18 @@ entries:
   eks-node-pools:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-08-19T16:24:22.173965521Z"
+    description: Node Pools for EKS Auto Mode
+    digest: 31236a1ee13465ab115dcf71c6c644c30598f47ee1c463a89ebe91f11407c497
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: eks-node-pools
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/eks-node-pools-0.1.2/eks-node-pools-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-08-07T12:17:10.185692072Z"
     description: Node Pools for EKS Auto Mode
     digest: 952ea73ba38a88f9db7bd423d03cc9bffa9b99dd3880786d6c88e44615ff0b35
@@ -1071,4 +1083,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-07T12:17:10.185896295Z"
+generated: "2026-08-19T16:24:22.174221381Z"
