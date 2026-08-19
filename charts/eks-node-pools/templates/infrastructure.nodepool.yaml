@@ -8,8 +8,8 @@ spec:
   disruption:
     budgets:
       - nodes: 10%
-    consolidateAfter: 30s
-    consolidationPolicy: WhenEmptyOrUnderutilized
+    consolidateAfter: 15m
+    consolidationPolicy: Balanced
 
   template:
     spec:
