@@ -42,6 +42,13 @@ spec:
           operator: In
           values:
             - linux
+        # do not include flex instances (c7i-flex, c8i-flex, m7i-flex, etc.)
+        # they're sort of like burstable t-series and don't guarantee performance.
+        # we've had problems with them.
+        - key: eks.amazonaws.com/instance-capability-flex
+          operator: In
+          values:
+            - "false"
 
       taints:
         - effect: NoSchedule
