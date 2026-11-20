@@ -1,0 +1,61 @@
+apiVersion: karpenter.sh/v1
+kind: NodePool
+metadata:
+  name: general-on-demand
+spec:
+  disruption:
+    budgets:
+      - nodes: 10%
+    consolidateAfter: 15m
+    consolidationPolicy: WhenEmpty
+
+  template:
+    metadata:
+      labels:
+        # keep pending system pods from scaling up this pool (AKS sets it on its default pool too)
+        kubernetes.azure.com/mode: user
+        # Karpenter needs it to predict overhead of the Cilium DaemonSet
+        kubernetes.azure.com/ebpf-dataplane: cilium
+
+    spec:
+      expireAfter: 480h
+      terminationGracePeriod: 24h0m0s
+
+      nodeClassRef:
+        group: karpenter.azure.com
+        kind: AKSNodeClass
+        name: ubuntu
+
+      requirements:
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values:
+            - on-demand
+        - key: karpenter.azure.com/sku-family
+          operator: In
+          values:
+            - D
+            - E
+            - F
+        - key: karpenter.azure.com/sku-version
+          operator: Gt
+          values:
+            - "4"
+        - key: kubernetes.io/arch
+          operator: In
+          values:
+            - amd64
+        - key: kubernetes.io/os
+          operator: In
+          values:
+            - linux
+
+      startupTaints:
+        # https://karpenter.sh/docs/concepts/nodepools/#cilium-startup-taint
+        - effect: NoExecute
+          key: node.cilium.io/agent-not-ready
+          value: "true"
+
+      taints:
+        - effect: NoSchedule
+          key: ManualOnly

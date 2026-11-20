@@ -1,0 +1,51 @@
+# AKS can manage its own "default" and "system-surge" node classes, so this one has a different name
+apiVersion: karpenter.azure.com/v1beta1
+kind: AKSNodeClass
+metadata:
+  name: ubuntu
+spec:
+  imageFamily: Ubuntu
+
+  # The same LocalDNS settings AKS uses for its own node classes. "Preferred" doesn't enable LocalDNS
+  # on Kubernetes 1.36 and earlier. Since 1.37 it enables LocalDNS if the cluster passes compatibility
+  # checks, like AKS does for the system node pool. https://learn.microsoft.com/azure/aks/localdns-custom
+  localDNS:
+    mode: Preferred
+    kubeDNSOverrides:
+      - zone: .
+        cacheDuration: 3600s
+        forwardDestination: ClusterCoreDNS
+        forwardPolicy: Sequential
+        maxConcurrent: 1000
+        protocol: PreferUDP
+        queryLogging: Error
+        serveStale: Immediate
+        serveStaleDuration: 3600s
+      - zone: cluster.local
+        cacheDuration: 3600s
+        forwardDestination: ClusterCoreDNS
+        forwardPolicy: Sequential
+        maxConcurrent: 1000
+        protocol: ForceTCP
+        queryLogging: Error
+        serveStale: Immediate
+        serveStaleDuration: 3600s
+    vnetDNSOverrides:
+      - zone: .
+        cacheDuration: 3600s
+        forwardDestination: VnetDNS
+        forwardPolicy: Sequential
+        maxConcurrent: 1000
+        protocol: PreferUDP
+        queryLogging: Error
+        serveStale: Immediate
+        serveStaleDuration: 3600s
+      - zone: cluster.local
+        cacheDuration: 3600s
+        forwardDestination: ClusterCoreDNS
+        forwardPolicy: Sequential
+        maxConcurrent: 1000
+        protocol: ForceTCP
+        queryLogging: Error
+        serveStale: Immediate
+        serveStaleDuration: 3600s
