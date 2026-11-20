@@ -1,5 +1,18 @@
 apiVersion: v1
 entries:
+  aks-storage-classes:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-11-20T12:42:34.101899937Z"
+    description: Storage classes for AKS
+    digest: 744e7980fe17fc6bb08e208efb64f55688afd952041084d47fb233d53fb4f6dd
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: aks-storage-classes
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/aks-storage-classes-0.1.0/aks-storage-classes-0.1.0.tgz
+    version: 0.1.0
   application-library:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -1095,4 +1108,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2026-09-04T09:49:35.293064259Z"
+generated: "2026-11-20T12:42:34.102029759Z"
