@@ -1,0 +1,22 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: premium-ssd-lrs
+parameters:
+  skuName: Premium_LRS
+provisioner: disk.csi.azure.com
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: premium-ssd-zrs
+parameters:
+  skuName: Premium_ZRS
+provisioner: disk.csi.azure.com
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true

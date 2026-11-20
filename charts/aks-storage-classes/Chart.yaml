@@ -1,0 +1,9 @@
+---
+apiVersion: v2
+description: Storage classes for AKS
+appVersion: "1.0.0"
+name: aks-storage-classes
+version: 0.1.0
+maintainers:
+  - name: Ilya Cherepanov
+    email: deponian@evilmartians.com
