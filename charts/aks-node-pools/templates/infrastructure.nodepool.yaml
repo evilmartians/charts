@@ -34,15 +34,12 @@ spec:
           operator: In
           values:
             - spot
+            - on-demand
         # burstable B-series isn't used: it can't be spot and its CPU performance isn't guaranteed
         - key: karpenter.azure.com/sku-family
           operator: In
           values:
             - D
-        - key: karpenter.azure.com/sku-version
-          operator: Gt
-          values:
-            - "4"
         - key: kubernetes.io/arch
           operator: In
           values:
