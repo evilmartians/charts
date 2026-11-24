@@ -3,6 +3,18 @@ entries:
   aks-node-pools:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2026-11-24T15:49:40.21577242Z"
+    description: Node Pools for AKS node auto-provisioning
+    digest: a51558522b0bd16be2fff46f938ca5e0878a40facbc15890b13a7cbc34956edb
+    maintainers:
+    - email: deponian@evilmartians.com
+      name: Ilya Cherepanov
+    name: aks-node-pools
+    urls:
+    - https://github.com/evilmartians/charts/releases/download/aks-node-pools-0.2.0/aks-node-pools-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2026-11-20T12:47:14.129684981Z"
     description: Node Pools for AKS node auto-provisioning
     digest: 36319789a32f573c87724471e1dc0f1b3380066909f431956dc71bcec394394a
@@ -1121,4 +1133,4 @@ entries:
     urls:
     - https://github.com/evilmartians/charts/releases/download/priority-classes-0.1.0/priority-classes-0.1.0.tgz
     version: 0.1.0
-generated: "2026-11-20T12:47:14.129809634Z"
+generated: "2026-11-24T15:49:40.215872651Z"
